@@ -1,0 +1,33 @@
+{
+  "name": "brc-atlas-bigr",
+  "version": "1.1.0",
+  "description": "Utility functions for dealing with grid reference systems used in the British Isles.",
+  "main": "dist/bigr.cjs.js",
+  "module": "dist/bigr.esm.js",
+  "browser": "dist/bigr.umd.js",
+  "browsermin": "dist/bigr.min.umd.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebulish": "script-prepublish.js",
+    "build": "rollup --config"
+  },
+  "author": "CEH Biological Records Centre",
+  "license": "GPL-3.0-only",
+  "files": [
+    "dist"
+  ], 
+  "dependencies": {
+    "proj4": "^2.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@rollup/plugin-babel": "^5.0.4",
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "copy-dir": "^1.3.0",
+    "esm": "^3.2.25",
+    "rollup": "^2.18.1",
+    "rollup-plugin-terser": "^6.1.0"
+  }
+}
