@@ -1,6 +1,6 @@
 {
   "name": "brc-atlas-bigr",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Utility functions for dealing with grid reference systems used in the British Isles.",
   "main": "dist/bigr.cjs.js",
   "module": "dist/bigr.esm.js",
@@ -15,7 +15,11 @@
   "license": "GPL-3.0-only",
   "files": [
     "dist"
-  ], 
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BiologicalRecordsCentre/brc-atlas-bigr.git"
+  },
   "dependencies": {
     "proj4": "^2.6.2"
   },
