@@ -3,10 +3,11 @@
 <body>
 
 <script src='https://unpkg.com/brc-atlas-bigr/dist/bigr.umd.js'></script>
+<!-- <script src='../dist/bigr.umd.js'></script> -->
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
 <script>
-  const transOpts = bigr.namedTransOpts.BritishIslesWithCIinset1
+  const transOpts = bigr.namedTransOpts.BI3
   const height = 500
   const width = bigr.widthFromHeight(transOpts, height)
   const svg = d3.select('body').append('svg')

@@ -526,7 +526,7 @@ export const a100km = [
   * </pre>
   * @type {object}
 */
-export default array.reduce(function(acc, km100) {
+export default a100km.reduce(function(acc, km100) {
     acc[km100.GridRef] = {
       x: km100.x,
       y: km100.y,
