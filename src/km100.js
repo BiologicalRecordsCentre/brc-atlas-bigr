@@ -1,4 +1,12 @@
-export const array = [
+/** @module src/km100 */
+
+/** @constant
+  * @description This the raw array from which the default oject is derived. If you
+  * need to work with an array of objects where the 100 km grid reference is a property
+  * of the object alongside x, y, and proj.
+  * @type {array}
+*/
+export const a100km = [
   {
     "GridRef": "SV",
     "x": 0,
@@ -499,6 +507,25 @@ export const array = [
   }
 ]
 
+/** @constant
+  * @description The default export from this module is an object with a property
+  * for every 100 km square reference for Britain (Brtish National Grid),
+  * Ireland (Irish National Grid) and the Channel Islands (abbreviated UTM 30N).
+  * Each grid reference references an object that has properties x, y and proj.
+  * The x and y coordinates represent the centroid of the 100 km square in the
+  * coordinate reference system corresponding to the aforementioned areas, respectively
+  * epsg:27700, epsg:29903 and epsg:32630. Another property, proj, indicates the region/CRS
+  * with two letter codes, respectively gb, ir and ci.
+  * <p>An example of the object referenced through the property 'SO' is shown below:</p>
+  * <pre>
+  * {
+  *   "x": 3,
+  *   "y": 2,
+  *   "proj": "gb"
+  * }
+  * </pre>
+  * @type {object}
+*/
 export default array.reduce(function(acc, km100) {
     acc[km100.GridRef] = {
       x: km100.x,

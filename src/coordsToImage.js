@@ -18,9 +18,12 @@ export function widthFromHeight(transOpts, outputHeight) {
  * Given a transform object, describing a bounding rectangle in world coordinates,
  * and a height dimension, this function returns a new function that will accept a
  * point argument - normally describing real world coordinates - and returns a 
- * coordinate that is transformed to be within the range 0 - outputHeight (for y)
- * and 0 - outputWidth (for x). This function can be used as input to a D3.Path 
- * height 
+ * point that is transformed to be within the range 0 - outputHeight (for y)
+ * and 0 - outputWidth (for x). This function can be used as input to a d3.geoTransform
+ * to provide a transformation to d3.geoPath to draw an SVG path from a geojson file.
+ * The transOpts argument is an object which can also describe areas which should
+ * displayed in a displaed fashion. This can be used for displaying islands in an
+ * inset, e.g. the Channel Islands.
  * @param {object} transOpts - the transformation object
  * @param {number} outputHeight - the height, e.g. height in pixels, of an SVG element.
  * @returns {function}
@@ -55,6 +58,17 @@ export function transformFunction(transOpts, outputHeight) {
   }
 }
 
+/** @constant
+  *  @description This object contains some named objects that are in the correct 
+  * format to be used as transOpts arguments to some of the functions in this module.
+  * Using one of these may save you generating one of your own.
+  * <ul>
+  * <li> <b>namedTransOpts.BritishIsles1</b> is a bounding box, in EPSG:27700, for the British Ilse that includes the Channel Islands in their natural position.
+  * <li> <b>namedTransOpts.BritishIslesWithCIinset1</b> is a bounding box, in EPSG:27700, for the British Ilse, that doesn't extend as far south as the 
+  * Channel Islands, but with an inset covering the Channel Isles, offset 25 pixels from the bottom left corner of the output.
+  * </ul>
+  *  @type {object}
+*/
 export const namedTransOpts = {
   BritishIsles1: {
     bounds: {
