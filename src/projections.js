@@ -1,3 +1,14 @@
+/** @module src/projections */
+
+/** @constant
+  * @description This object describes the three coordinate reference systems used in this project corresponding
+  * to the British National Grid, Irish Grid and UTM zone 30N used for the Channel Islands. The object contains
+  * three properties, each named with the two letter code used throughout this package to represent one of the
+  * three systems: gb, ir and ci. Each of these properties provides access to an object defining the name,
+  * epsg code and proj4 string for the CRS.
+  * @type {array}
+*/
+
 export default {
   gb: {
     name: 'OSGB 1936 / British National Grid',

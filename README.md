@@ -1,5 +1,5 @@
 ### British Isles Grid Ref library
 
-This is a work in progress and will documented in depth as it develops a bit more.
+[JSDoc API documentation](https://biologicalrecordscentre.github.io/brc-atlas-bigr/out/)
 
-NPM package: https://www.npmjs.com/package/brc-atlas-bigr
+[NPM package](https://www.npmjs.com/package/brc-atlas-bigr)

@@ -1,9 +1,9 @@
 /** @module src/km100 */
 
 /** @constant
-  * @description This the raw array from which the default oject is derived. If you
+  * @description This the array from which the default object is derived. If you
   * need to work with an array of objects where the 100 km grid reference is a property
-  * of the object alongside x, y, and proj.
+  * of the object alongside x, y, and proj, you can use this.
   * @type {array}
 */
 export const a100km = [
