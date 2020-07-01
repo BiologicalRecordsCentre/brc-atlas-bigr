@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "node script-prepublish.js",
-    "build": "rollup --config"
+    "build": "rollup --config",
+    "docs": "jsdoc ./src/ -R README.md"
   },
   "author": "CEH Biological Records Centre",
   "license": "GPL-3.0-only",
