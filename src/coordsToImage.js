@@ -2,6 +2,44 @@
 
 /**
  * Given a transform object, describing a bounding rectangle in world coordinates,
+ * and a height dimension, this function returns an array of objects - one
+ * for each inset described in the transform object - that describe a set of
+ * rectangles corresponding to each of the insets. Each object has an origin
+ * corresponding to the top left of the rectangle, a width and a height dimension.
+ * The dimensions and coordiates are relative to the height argument. A typical
+ * use of these metrics would be to draw an SVG rectagle around an inset.
+ * @param {object} transOpts - the transformation object
+ * @param {number} outputHeight - the height, e.g. height in pixels, of an SVG element.
+ * @returns {Array<Object>}
+ */
+export function getInsetDims(transOpts, outputHeight) {
+
+  const outputWidth = widthFromHeight(transOpts, outputHeight)
+  const realWidth = transOpts.bounds.xmax - transOpts.bounds.xmin 
+  const realHeight = transOpts.bounds.ymax - transOpts.bounds.ymin
+  const transform = transformFunction(transOpts, outputHeight)
+  const insetDims = []
+  
+  if (transOpts.insets) {
+    transOpts.insets.forEach(function(inset) {
+      const ll = transform([inset.bounds.xmin, inset.bounds.ymin])
+      const ur = transform([inset.bounds.xmax, inset.bounds.ymax])
+      const iWidth = ur[0]-ll[0]
+      const iHeight = ll[1]-ur[1]
+
+      insetDims.push ({
+        x: inset.imageX < 0 ? width - iWidth + inset.imageX : inset.imageX,
+        y: inset.imageY < 0 ? - inset.imageY : height - inset.imageY - iHeight,
+        width: iWidth,
+        height: iHeight
+      })
+    })
+  }
+  return insetDims
+}
+
+/**
+ * Given a transform object, describing a bounding rectangle in world coordinates,
  * and a height dimension, this function returns a width dimension
  * that respects the aspect ratio described by the bounding rectangle.
  * @param {object} transOpts - the transformation object
