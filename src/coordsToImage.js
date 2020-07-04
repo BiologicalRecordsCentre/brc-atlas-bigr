@@ -175,9 +175,9 @@ export const namedTransOpts = {
 
 
 
-export function getTweenTransOpts(code){
+export function getTweenTransOpts(from){
   
-  const transOpts = namedTransOpts[code]
+  const transOpts = namedTransOpts[from]
   if (!transOpts.insets) {
     transOpts.insets = []
   }
