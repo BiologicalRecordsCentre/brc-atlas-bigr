@@ -112,6 +112,20 @@ export function transformFunction(transOpts, outputHeight) {
   }
 }
 
+const boundsChannelIslands_gb = {
+  xmin: 337373,
+  ymin: -92599,
+  xmax: 427671,
+  ymax: -6678
+}
+
+const boundsNorthernIsles_gb = {
+  xmin: 312667,
+  ymin: 980030,
+  xmax: 475291,
+  ymax: 1225003
+}
+
 /** @constant
   *  @description This object contains some named objects that are in the correct 
   * format to be used as transOpts arguments to some of the functions in this module.
@@ -130,6 +144,10 @@ export function transformFunction(transOpts, outputHeight) {
   * Channel Islands, but with an inset covering the Channel Isles, 
   * offset 25 pixels from the bottom left corner of the output.
   * <li> <b>namedTransOpts.BI3</b> is a bounding box, in EPSG:27700, for 
+  * the British Isles, that doesn't extend as far north as the Northern Isles.
+  * An inset covering the Northern Isles, is offset 25 pixels from the 
+  * top right corner of the output.
+  * <li> <b>namedTransOpts.BI4</b> is a bounding box, in EPSG:27700, for 
   * the British Isles, that doesn't extend as far south as the 
   * Channel Islands or as far north as the Northern Isles. An inset covering 
   * the Channel Isles, is offset 25 pixels from the bottom left corner of the output.
@@ -155,12 +173,7 @@ export const namedTransOpts = {
       ymax: 1237242
     },
     insets: [{
-      bounds: {
-        xmin: 337373,
-        ymin: -92599,
-        xmax: 427671,
-        ymax: -6678
-      },
+      bounds: boundsChannelIslands_gb,
       imageX: 25,
       imageY: 25
     }]
@@ -173,24 +186,67 @@ export const namedTransOpts = {
       ymax: 1050000
     },
     insets: [{
-      bounds: {
-        xmin: 337373,
-        ymin: -92599,
-        xmax: 427671,
-        ymax: -6678
-      },
+      bounds: boundsNorthernIsles_gb,
+      imageX: -25,
+      imageY: -25
+    }]
+  },
+  BI4: {
+    bounds: {
+      xmin: -213389,
+      ymin: -9939,
+      xmax: 702813,
+      ymax: 1050000
+    },
+    insets: [{
+      bounds: boundsChannelIslands_gb,
       imageX: 25,
       imageY: 25
     },
     {
-      bounds: {
-        xmin: 312667,
-        ymin: 980030,
-        xmax: 475291,
-        ymax: 1225003
-      },
+      bounds: boundsNorthernIsles_gb,
       imageX: -25,
       imageY: -25
     }]
   }
 }
+
+
+
+export function getTweenTransOpts(from){
+  
+  const transOpts = namedTransOpts[from]
+  if (!transOpts.insets) {
+    transOpts.insets = []
+  }
+
+  let insetCi, insetNi
+  transOpts.insets.forEach(function(i){
+    
+    if (i.bounds.x === boundsChannelIslands_gb.x) {
+      insetCi = true
+    }
+    if (i.bounds.x === boundsNorthernIsles_gb.x) {
+      insetNi = true
+    }
+  })
+
+  if (!insetCi) {
+    transOpts.insets.unshift({
+      bounds: boundsChannelIslands_gb,
+      imageX: 25,
+      imageY: 25
+    })
+  }
+
+  if (!insetNi) {
+    transOpts.insets.push({
+      bounds: boundsNorthernIsles_gb,
+      imageX: -25,
+      imageY: -25
+    })
+  }
+
+  return transOpts
+}
+
