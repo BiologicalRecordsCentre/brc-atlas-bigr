@@ -1,5 +1,5 @@
 import { getCentroid } from './src/getCentroid'
-import { transformFunction,  widthFromHeight, namedTransOpts } from './src/coordsToImage'
+import { getTweenTransOpts, transformFunction,  widthFromHeight, namedTransOpts } from './src/coordsToImage'
 
 export { getCentroid }
-export { transformFunction,  widthFromHeight, namedTransOpts } 
+export { getTweenTransOpts, transformFunction,  widthFromHeight, namedTransOpts } 

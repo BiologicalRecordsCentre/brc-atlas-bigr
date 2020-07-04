@@ -16,6 +16,7 @@ import projections from './projections'
  * (currently - 01/07/2020 only deals with hectads and 100 km grs).
  */
 export function getCentroid (gr, toProjection) {
+
   const match = gr.match(/^[A-Za-z]+/)
   if (!match) throw("Bad GR - doesn't start with letters")
       
