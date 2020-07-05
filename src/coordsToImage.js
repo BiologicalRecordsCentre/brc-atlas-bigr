@@ -15,8 +15,6 @@
 export function getInsetDims(transOpts, outputHeight) {
 
   const outputWidth = widthFromHeight(transOpts, outputHeight)
-  const realWidth = transOpts.bounds.xmax - transOpts.bounds.xmin 
-  const realHeight = transOpts.bounds.ymax - transOpts.bounds.ymin
   const transform = transformFunction(transOpts, outputHeight)
   const insetDims = []
   
@@ -28,8 +26,8 @@ export function getInsetDims(transOpts, outputHeight) {
       const iHeight = ll[1]-ur[1]
 
       insetDims.push ({
-        x: inset.imageX < 0 ? width - iWidth + inset.imageX : inset.imageX,
-        y: inset.imageY < 0 ? - inset.imageY : height - inset.imageY - iHeight,
+        x: inset.imageX < 0 ? outputWidth - iWidth + inset.imageX : inset.imageX,
+        y: inset.imageY < 0 ? - inset.imageY : outputHeight - inset.imageY - iHeight,
         width: iWidth,
         height: iHeight
       })
@@ -92,12 +90,12 @@ export function transformFunction(transOpts, outputHeight) {
           // Adjust inset origns - negative are offsets of max inset from max output
 
           let imageX, imageY
-          if (inset.imageX < 0) {
+          if (inset.imageX < 0 && !transOpts.forTween) {
             imageX = outputWidth + inset.imageX - ((inset.bounds.xmax - inset.bounds.xmin) / realWidth * outputWidth)
           } else {
             imageX=inset.imageX
           }
-          if (inset.imageY < 0) {
+          if (inset.imageY < 0 && !transOpts.forTween) {
             imageY = outputHeight + inset.imageY - ((inset.bounds.ymax - inset.bounds.ymin) / realHeight * outputHeight)
           } else {
             imageY=inset.imageY
@@ -112,13 +110,13 @@ export function transformFunction(transOpts, outputHeight) {
   }
 }
 
+// Defined insets required for namedTransOpts
 const boundsChannelIslands_gb = {
   xmin: 337373,
   ymin: -92599,
   xmax: 427671,
   ymax: -6678
 }
-
 const boundsNorthernIsles_gb = {
   xmin: 312667,
   ymin: 980030,
@@ -211,42 +209,115 @@ export const namedTransOpts = {
   }
 }
 
-
-
-export function getTweenTransOpts(from){
+/**
+ * Given both 'from' and 'to' transform objects, an output height and a
+ * 'tween' value between 0 and 1, this function returns a transform object
+ * for which the map bounds, the inset bounds and the inset image position
+ * are all interpolated between the 'from' and 'to' objects at a position
+ * depending on the value of the tween value. Typically this would then be used
+ * to help generate a path transformation to use with D3 to animate transitions
+ * between different map transformations. Note that this only works with
+ * named transformation objects defined in this library.
+ * @param {object} from - the 'from' transformation object.
+ * @param {object} to - the 'to' transformation object.
+ * @param {number} outputHeight - the height, e.g. height in pixels, of an SVG element.
+ * @param {number} tween - between 0 and 1 indicating the interpolation position.
+ * @returns {object} - in intermediate transformation object.
+ */
+export function getTweenTransOpts(from, to, outputHeight, tween){
   
-  const transOpts = namedTransOpts[from]
-  if (!transOpts.insets) {
-    transOpts.insets = []
+  const fto = copyTransOptsForTween(namedTransOpts[from], outputHeight)
+  const tto = copyTransOptsForTween(namedTransOpts[to], outputHeight)
+
+  let rto = {
+    bounds: {
+      xmin: fto.bounds.xmin + (tto.bounds.xmin - fto.bounds.xmin) * tween,
+      xmax: fto.bounds.xmax + (tto.bounds.xmax - fto.bounds.xmax) * tween,
+      ymin: fto.bounds.ymin + (tto.bounds.ymin - fto.bounds.ymin) * tween,
+      ymax: fto.bounds.ymax + (tto.bounds.ymax - fto.bounds.ymax) * tween
+    },
+    insets: [],
+    forTween: true // Means that negative image positions won't be translated by transformFunction
+  }
+  fto.insets.forEach(function(i,idx){
+    rto.insets.push({
+      bounds: {
+        xmin: i.bounds.xmin + (tto.insets[idx].bounds.xmin - i.bounds.xmin) * tween,
+        xmax: i.bounds.xmax + (tto.insets[idx].bounds.xmax - i.bounds.xmax) * tween,
+        ymin: i.bounds.ymin + (tto.insets[idx].bounds.ymin - i.bounds.ymin) * tween,
+        ymax: i.bounds.ymax + (tto.insets[idx].bounds.ymax - i.bounds.ymax) * tween
+      },
+      imageX: i.imageX + (tto.insets[idx].imageX - i.imageX) * tween,
+      imageY: i.imageY + (tto.insets[idx].imageY - i.imageY) * tween
+    })
+  })
+  return rto
+}
+
+function copyTransOptsForTween(transOpts, outputHeight) {
+
+  // This function makes a copy of a transformation object. The copy is different
+  // from the original in two respects. Firstly the image positions of the insets
+  // are expressed as positive numbers (from bottom or left of image)
+  // even when expressed as negative offsets (from top or right of image) in the
+  // original. Secondly all named insets used in this library are represented in
+  // the returned object even if not present in the original. Such insets are
+  // given image positions that reflect their real world positions.
+
+  const insetDims = getInsetDims(transOpts, outputHeight)
+
+  let tto = {
+    bounds: {
+      xmin: transOpts.bounds.xmin,
+      xmax: transOpts.bounds.xmax,
+      ymin: transOpts.bounds.ymin,
+      ymax: transOpts.bounds.ymax
+    },
+    insets: []
+  }
+  if (transOpts.insets){
+    transOpts.insets.forEach(function(i, idx){
+      const iNew = {
+        bounds: {
+          xmin: i.bounds.xmin,
+          xmax: i.bounds.xmax,
+          ymin: i.bounds.ymin,
+          ymax: i.bounds.ymax
+        },
+      }
+      // Usng the calculated insetDims translates any negative numbers - used
+      // as shorthand for defining position offsets from top or right margin - to 
+      // positive values from bottom and left.
+      iNew.imageX = insetDims[idx].x,
+      iNew.imageY = outputHeight - insetDims[idx].y - insetDims[idx].height
+      tto.insets.push(iNew)
+    })
   }
 
   let insetCi, insetNi
-  transOpts.insets.forEach(function(i){
-    
-    if (i.bounds.x === boundsChannelIslands_gb.x) {
+  tto.insets.forEach(function(i){
+    if (i.bounds.xmin === boundsChannelIslands_gb.xmin) {
       insetCi = true
     }
-    if (i.bounds.x === boundsNorthernIsles_gb.x) {
+    if (i.bounds.xmin === boundsNorthernIsles_gb.xmin) {
       insetNi = true
     }
   })
 
   if (!insetCi) {
-    transOpts.insets.unshift({
+    tto.insets.unshift({
       bounds: boundsChannelIslands_gb,
-      imageX: 25,
-      imageY: 25
+      imageX: (boundsChannelIslands_gb.xmin - tto.bounds.xmin) / (tto.bounds.xmax - tto.bounds.xmin) * widthFromHeight(tto, outputHeight),
+      imageY: (boundsChannelIslands_gb.ymin - tto.bounds.ymin) / (tto.bounds.ymax - tto.bounds.ymin) * outputHeight
     })
   }
 
   if (!insetNi) {
-    transOpts.insets.push({
+    tto.insets.push({
       bounds: boundsNorthernIsles_gb,
-      imageX: -25,
-      imageY: -25
+      imageX: (boundsNorthernIsles_gb.xmin - tto.bounds.xmin) / (tto.bounds.xmax - tto.bounds.xmin) * widthFromHeight(tto, outputHeight),
+      imageY: (boundsNorthernIsles_gb.ymin - tto.bounds.ymin ) / (tto.bounds.ymax - tto.bounds.ymin) * outputHeight
     })
   }
-
-  return transOpts
+  return tto
 }
-

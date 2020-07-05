@@ -64,7 +64,7 @@
 
 
 <div class="description">
-    This object contains some named objects that are in the correct format to be used as transOpts arguments to some of the functions in this module.Using one of these may save you generating one of your own. The main bounds elementindicates the extent of the main map (in real world coordinates). The bounds ofinset objects indicate the extent that is to be offset within the map image. TheimageX and imageY values of an inset object indicates the position of the offsetportion within the map in pixels. Positve x and y values offset the inset from theleft and bottom of the image respecitvely. Negative x and y values offset the insetfrom the right and top of the image respectively.<ul><li> <b>namedTransOpts.BI1</b> is a bounding box, in EPSG:27700, for the British Ilses that includes the Channel Islands in their natural position.<li> <b>namedTransOpts.BI2</b> is a bounding box, in EPSG:27700, for the British Isles, that doesn't extend as far south as the Channel Islands, but with an inset covering the Channel Isles, offset 25 pixels from the bottom left corner of the output.<li> <b>namedTransOpts.BI3</b> is a bounding box, in EPSG:27700, for the British Isles, that doesn't extend as far south as the Channel Islands or as far north as the Northern Isles. An inset covering the Channel Isles, is offset 25 pixels from the bottom left corner of the output.An inset covering the Northern Isles, is offset 25 pixels from the top right corner of the output.</ul>
+    This object contains some named objects that are in the correct format to be used as transOpts arguments to some of the functions in this module.Using one of these may save you generating one of your own. The main bounds elementindicates the extent of the main map (in real world coordinates). The bounds ofinset objects indicate the extent that is to be offset within the map image. TheimageX and imageY values of an inset object indicates the position of the offsetportion within the map in pixels. Positve x and y values offset the inset from theleft and bottom of the image respecitvely. Negative x and y values offset the insetfrom the right and top of the image respectively.<ul><li> <b>namedTransOpts.BI1</b> is a bounding box, in EPSG:27700, for the British Ilses that includes the Channel Islands in their natural position.<li> <b>namedTransOpts.BI2</b> is a bounding box, in EPSG:27700, for the British Isles, that doesn't extend as far south as the Channel Islands, but with an inset covering the Channel Isles, offset 25 pixels from the bottom left corner of the output.<li> <b>namedTransOpts.BI3</b> is a bounding box, in EPSG:27700, for the British Isles, that doesn't extend as far north as the Northern Isles.An inset covering the Northern Isles, is offset 25 pixels from the top right corner of the output.<li> <b>namedTransOpts.BI4</b> is a bounding box, in EPSG:27700, for the British Isles, that doesn't extend as far south as the Channel Islands or as far north as the Northern Isles. An inset covering the Channel Isles, is offset 25 pixels from the bottom left corner of the output.An inset covering the Northern Isles, is offset 25 pixels from the top right corner of the output.</ul>
 </div>
 
 
@@ -112,7 +112,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordsToImage.js.html">coordsToImage.js</a>, <a href="coordsToImage.js.html#line139">line 139</a>
+        <a href="coordsToImage.js.html">coordsToImage.js</a>, <a href="coordsToImage.js.html#line157">line 157</a>
     </li></ul></dd>
     
 
@@ -301,6 +301,234 @@
     <dd>
         
 <span class="param-type">Array.&lt;Object></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getTweenTransOpts"><span class="type-signature">(static) </span>getTweenTransOpts<span class="signature">(from, to, outputHeight, tween)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Given both 'from' and 'to' transform objects, an output height and a'tween' value between 0 and 1, this function returns a transform objectfor which the map bounds, the inset bounds and the inset image positionare all interpolated between the 'from' and 'to' objects at a positiondepending on the value of the tween value. Typically this would then be usedto help generate a path transformation to use with D3 to animate transitionsbetween different map transformations. Note that this only works withnamed transformation objects defined in this library.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>from</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the 'from' transformation object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>to</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the 'to' transformation object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>outputHeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the height, e.g. height in pixels, of an SVG element.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tween</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">between 0 and 1 indicating the interpolation position.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="coordsToImage.js.html">coordsToImage.js</a>, <a href="coordsToImage.js.html#line227">line 227</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - in intermediate transformation object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
 
 
     </dd>
@@ -690,11 +918,7 @@
 <br class="clear">
 
 <footer>
-<<<<<<< HEAD
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Jul 03 2020 16:32:10 GMT+0100 (British Summer Time)
-=======
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat Jul 04 2020 14:56:05 GMT+0100 (British Summer Time)
->>>>>>> rtmp
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun Jul 05 2020 11:13:40 GMT+0100 (British Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>
