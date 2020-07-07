@@ -108,3 +108,35 @@ test('getCentroid returns correct GB coords for IR 10 fig GR', () => {
 })
 
 // Test that correct GB coords are returned for CI GRs 
+test('getCentroid returns correct GB coords for CI 100 km GR', () => {
+  expect(Math.floor(getCentroid('WV', 'gb').centroid[0])).toBe(377247)
+  expect(Math.floor(getCentroid('WV', 'gb').centroid[1])).toBe(-77721)
+})
+test('getCentroid returns correct GB coords for CI 10 km GR', () => {
+  expect(Math.floor(getCentroid('WV65', 'gb').centroid[0])).toBe(392311)
+  expect(Math.floor(getCentroid('WV65', 'gb').centroid[1])).toBe(-72919)
+})
+test('getCentroid returns correct GB coords for CI 5 km GR', () => {
+  expect(Math.floor(getCentroid('WA50NE', 'gb').centroid[0])).toBe(385509)
+  expect(Math.floor(getCentroid('WA50NE', 'gb').centroid[1])).toBe(-20325)
+})
+test('getCentroid returns correct GB coords for CI 2 km GR', () => {
+  expect(Math.floor(getCentroid('WV27Y', 'gb').centroid[0])).toBe(356605)
+  expect(Math.floor(getCentroid('WV27Y', 'gb').centroid[1])).toBe(-50444)
+})
+test('getCentroid returns correct GB coords for CI 1 km GR', () => {
+  expect(Math.floor(getCentroid('WV4575', 'gb').centroid[0])).toBe(373085)
+  expect(Math.floor(getCentroid('WV4575', 'gb').centroid[1])).toBe(-52163)
+})
+test('getCentroid returns correct GB coords for CI 6 fig GR', () => {
+  expect(Math.floor(getCentroid('WV463758', 'gb').centroid[0])).toBe(373939)
+  expect(Math.floor(getCentroid('WV463758', 'gb').centroid[1])).toBe(-51824)
+})
+test('getCentroid returns correct GB coords for CI 8 fig GR', () => {
+  expect(Math.floor(getCentroid('WV46317577', 'gb').centroid[0])).toBe(373903)
+  expect(Math.floor(getCentroid('WV46317577', 'gb').centroid[1])).toBe(-51899)
+})
+test('getCentroid returns correct GB coords for CI 10 fig GR', () => {
+  expect(Math.floor(getCentroid('WV4631075769', 'gb').centroid[0])).toBe(373899)
+  expect(Math.floor(getCentroid('WV4631075769', 'gb').centroid[1])).toBe(-51904)
+})
