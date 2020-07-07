@@ -1,5 +1,25 @@
 import { getCentroid } from './getCentroid'
 
+// Check invalid GRs correctly dealt with
+test('getCentroid throws correct error for invalid GR XX', () => {
+  let msg = ''
+  try {getCentroid('XX', 'gb')}
+  catch(err) {msg = err}
+  finally {expect(msg).toBe('The value \'XX\' is not recognised as a valid grid reference.')}
+})
+test('getCentroid throws correct error for invalid GR 3456', () => {
+  let msg = ''
+  try {getCentroid('3456', 'gb')}
+  catch(err) {msg = err}
+  finally {expect(msg).toBe('The value \'3456\' is not recognised as a valid grid reference.')}
+})
+test('getCentroid throws correct error for invalid GR SD354', () => {
+  let msg = ''
+  try {getCentroid('SD354', 'gb')}
+  catch(err) {msg = err}
+  finally {expect(msg).toBe('The value \'SD354\' is not recognised as a valid grid reference.')}
+})
+
 // Test that correct projection string is returned
 test('getCentroid returns "gb" projection for "SO" regardless of output coord projection', () => {
   expect(getCentroid('SO', 'gb').proj).toBe('gb')
