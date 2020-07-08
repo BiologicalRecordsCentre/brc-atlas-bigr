@@ -1,4 +1,4 @@
 work
 node_modules
 dist
-test*
+test*.html
