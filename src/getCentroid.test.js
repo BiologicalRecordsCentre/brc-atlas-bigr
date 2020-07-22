@@ -1,47 +1,6 @@
 import { getCentroid } from './getCentroid'
 const fs = require('fs')
 
-describe('Check invalid GRs correctly dealt with', function () {
-  test('getCentroid throws correct error for invalid GR XX', () => {
-    let msg = ''
-    try {getCentroid('XX', 'gb')}
-    catch(err) {msg = err}
-    finally {expect(msg).toBe('The value \'XX\' is not recognised as a valid grid reference.')}
-  })
-  test('getCentroid throws correct error for invalid GR 3456', () => {
-    let msg = ''
-    try {getCentroid('3456', 'gb')}
-    catch(err) {msg = err}
-    finally {expect(msg).toBe('The value \'3456\' is not recognised as a valid grid reference.')}
-  })
-  test('getCentroid throws correct error for invalid GR SD354', () => {
-    let msg = ''
-    try {getCentroid('SD354', 'gb')}
-    catch(err) {msg = err}
-    finally {expect(msg).toBe('The value \'SD354\' is not recognised as a valid grid reference.')}
-  })
-})
-
-describe('Check that correct projection string is returned', function () {
-  test('getCentroid returns "gb" projection for "SO" regardless of output coord projection', () => {
-    expect(getCentroid('SO', 'gb').proj).toBe('gb')
-    expect(getCentroid('SO', 'ir').proj).toBe('gb')
-    expect(getCentroid('SO', 'ci').proj).toBe('gb')
-  })
-
-  test('getCentroid returns "ir" projection for "X" regardless of output coord projection', () => {
-    expect(getCentroid('X', 'gb').proj).toBe('ir')
-    expect(getCentroid('X', 'ir').proj).toBe('ir')
-    expect(getCentroid('X', 'ci').proj).toBe('ir')
-  })
-
-  test('getCentroid returns "ci" projection for "WA" regardless of output coord projection', () => {
-    expect(getCentroid('WA', 'gb').proj).toBe('ci')
-    expect(getCentroid('WA', 'ir').proj).toBe('ci')
-    expect(getCentroid('WA', 'ci').proj).toBe('ci')
-  })
-})
-
 function testCentroidsFromCsv(file, code) {
   describe(`Check returned centroid coords for ${code.toUpperCase()} projection`, function () {
 
@@ -85,9 +44,9 @@ function testCentroidsFromCsv(file, code) {
 }
 
 // CSVs generated with QGIS
-// testCentroidsFromCsv('test-data/test-grs-27700.csv', 'gb')
-// testCentroidsFromCsv('test-data/test-grs-29903.csv', 'ir')
-// testCentroidsFromCsv('test-data/test-grs-32630.csv', 'ci')
-// testCentroidsFromCsv('test-data/test-grs-4326.csv', 'wg')
+testCentroidsFromCsv('test-data/test-grs-27700.csv', 'gb')
+testCentroidsFromCsv('test-data/test-grs-29903.csv', 'ir')
+testCentroidsFromCsv('test-data/test-grs-32630.csv', 'ci')
+testCentroidsFromCsv('test-data/test-grs-4326.csv', 'wg')
 testCentroidsFromCsv('test-data/test-tetrads-27700.csv', 'gb')
 
