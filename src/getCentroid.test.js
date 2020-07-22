@@ -85,8 +85,9 @@ function testCentroidsFromCsv(file, code) {
 }
 
 // CSVs generated with QGIS
-testCentroidsFromCsv('test-data/test-grs-27700.csv', 'gb')
-testCentroidsFromCsv('test-data/test-grs-29903.csv', 'ir')
-testCentroidsFromCsv('test-data/test-grs-32630.csv', 'ci')
-testCentroidsFromCsv('test-data/test-grs-4326.csv', 'wg')
+// testCentroidsFromCsv('test-data/test-grs-27700.csv', 'gb')
+// testCentroidsFromCsv('test-data/test-grs-29903.csv', 'ir')
+// testCentroidsFromCsv('test-data/test-grs-32630.csv', 'ci')
+// testCentroidsFromCsv('test-data/test-grs-4326.csv', 'wg')
+testCentroidsFromCsv('test-data/test-tetrads-27700.csv', 'gb')
 
