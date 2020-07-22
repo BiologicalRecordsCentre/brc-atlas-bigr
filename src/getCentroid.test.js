@@ -62,9 +62,17 @@ function testCentroidsFromCsv(file, code) {
 
         let permittedDiff
         if (gr.length < 3) {
-          permittedDiff = 10
+          if (code === 'wg'){
+            permittedDiff = 0.0002
+          } else {
+            permittedDiff = 10
+          }
         } else {
-          permittedDiff = 1
+           if (code === 'wg'){
+            permittedDiff = 0.00002
+          } else {
+            permittedDiff = 1
+          }
         }
 
         test(`getCentroid returns correct ${code.toUpperCase()} coords for grid ref: ${gr}`, () => {
@@ -80,4 +88,5 @@ function testCentroidsFromCsv(file, code) {
 testCentroidsFromCsv('test-data/test-grs-27700.csv', 'gb')
 testCentroidsFromCsv('test-data/test-grs-29903.csv', 'ir')
 testCentroidsFromCsv('test-data/test-grs-32630.csv', 'ci')
+testCentroidsFromCsv('test-data/test-grs-4326.csv', 'wg')
 

@@ -2,3 +2,4 @@ work
 node_modules
 dist
 test*.html
+test*.htm

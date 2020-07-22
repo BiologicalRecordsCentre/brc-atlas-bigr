@@ -24,5 +24,10 @@ export default {
     name: 'WGS 84 / UTM zone 30N',
     epsg: '32630',
     proj4: '+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs',
+  },
+  wg: {
+    name: 'WGS 84',
+    epsg: '4326',
+    proj4: '+proj=longlat +datum=WGS84 +no_defs',
   }
 }
