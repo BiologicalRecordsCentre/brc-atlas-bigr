@@ -31,13 +31,12 @@ function convertCoords(fromProjection, toProjection, x, y) {
 export function getGjson (gr, toProjection) {
 
   const grType = checkGr(gr)
-  const centroid = getCentroid(gr, toProjection)
   const km100 = km100s[grType.prefix]
-
-  const xmin = centroid.x - grType.precision / 2
-  const xmax = centroid.x + grType.precision / 2
-  const ymin = centroid.y - grType.precision / 2
-  const ymax = centroid.y + grType.precision / 2
+  const centroid = getCentroid(gr, km100.proj).centroid
+  const xmin = centroid[0] - grType.precision / 2
+  const xmax = centroid[0] + grType.precision / 2
+  const ymin = centroid[1] - grType.precision / 2
+  const ymax = centroid[1] + grType.precision / 2
  
   return {
     "type": "Feature",

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: src/getCentroid</title>
+    <title>JSDoc: Module: src/checkGr</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: src/getCentroid</h1>
+    <h1 class="page-title">Module: src/checkGr</h1>
 
     
 
@@ -64,7 +64,7 @@
     
 
     
-    <h4 class="name" id=".getCentroid"><span class="type-signature">(static) </span>getCentroid<span class="signature">(gr, toProjection)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id=".checkGr"><span class="type-signature">(static) </span>checkGr<span class="signature">(gr)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -72,7 +72,7 @@
 
 
 <div class="description">
-    Given a grid reference (British National Grid, Irish Grid or UTM zone 30N shorthand),and a two-letter code defining the requested output projection, this functionreturns the centroid of the grid reference.
+    Given a grid reference (British National Grid, Irish Grid or UTM zone 30N shorthand),check that ths is a valid GR. If it is, return an object which includes the GR precision in metres and the prefix.If an invalid grid reference is supplied throws an error.
 </div>
 
 
@@ -124,30 +124,7 @@
 
             
 
-            <td class="description last">the grid reference</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>toProjection</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">two letter code specifying the required output CRS.</td>
+            <td class="description last">the grid reference.</td>
         </tr>
 
     
@@ -188,7 +165,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getCentroid.js.html">getCentroid.js</a>, <a href="getCentroid.js.html#line18">line 18</a>
+        <a href="checkGr.js.html">checkGr.js</a>, <a href="checkGr.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -217,7 +194,7 @@
 
         
 <div class="param-desc">
-    - of the form {centroid: [x, y], proj: 'code'}; x and y are coordinates in CRS specified by toProjection. The proj code indicates the source projection.
+    - of the form {precision: n, prefix: 'prefix'}.
 </div>
 
 
