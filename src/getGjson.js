@@ -42,13 +42,13 @@ export function getGjson (gr, toProjection) {
     "type": "Feature",
     "geometry": {
         "type": "Polygon",
-        "coordinates": [
+        "coordinates": [[
           convertCoords(km100.proj, toProjection, xmin, ymin),
           convertCoords(km100.proj, toProjection, xmax, ymin),
           convertCoords(km100.proj, toProjection, xmax, ymax),
           convertCoords(km100.proj, toProjection, xmin, ymax),
           convertCoords(km100.proj, toProjection, xmin, ymin)
-        ]
+        ]]
     }
     // "properties": {
     //     "prop0": "value0",
