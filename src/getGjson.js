@@ -76,8 +76,9 @@ export function getGjson (gr, toProjection, shape) {
     const rad = grType.precision / 2
     coords = [[]]
     for(let deg  = 0; deg <= 360;  deg += 15){
-      const x = rad * Math.cos(deg) + centroid[0]
-      const y = rad * Math.sin(deg) + centroid[1]
+      const angle = deg * Math.PI / 180
+      const x = rad * Math.cos(angle) + centroid[0]
+      const y = rad * Math.sin(angle) + centroid[1]
       coords[0].push(convertCoords(km100.proj, toProjection, x, y))
     }
   } else if (shape === "cross") {
