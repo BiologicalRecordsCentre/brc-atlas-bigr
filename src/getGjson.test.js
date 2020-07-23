@@ -30,4 +30,9 @@ describe('Check GeoJson feature returned', function () {
     console.log(ftr.geometry.coordinates)
     expect(ftr.geometry.coordinates).toHaveLength(3)
   })
+  test('Returns circle feature with coords in 4326', () => {
+    const ftr = getGjson('SD34', 'wg', 'circle')
+    console.log(ftr.geometry.coordinates[0])
+    expect(ftr.geometry.coordinates[0]).toHaveLength(25)
+  })
 })

@@ -72,8 +72,16 @@ export function getGjson (gr, toProjection, shape) {
       convertCoords(km100.proj, toProjection, xmin, ymid),
       convertCoords(km100.proj, toProjection, xmid, ymin)
     ]]
+  } else if (shape === "circle") {
+    const rad = grType.precision / 2
+    coords = [[]]
+    for(let deg  = 0; deg <= 360;  deg += 15){
+      const x = rad * Math.cos(deg) + centroid[0]
+      const y = rad * Math.sin(deg) + centroid[1]
+      coords[0].push(convertCoords(km100.proj, toProjection, x, y))
+    }
   } else if (shape === "cross") {
-    type = "LineString"
+    type = "MultiLineString"
     coords = [
       [convertCoords(km100.proj, toProjection, xmin, ymin),
       convertCoords(km100.proj, toProjection, xmax, ymin),
