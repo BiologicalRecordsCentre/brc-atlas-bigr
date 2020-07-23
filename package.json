@@ -1,6 +1,6 @@
 {
   "name": "brc-atlas-bigr",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "Utility functions for dealing with grid reference systems used in the British Isles.",
   "main": "dist/bigr.cjs.js",
   "module": "dist/bigr.esm.js",
