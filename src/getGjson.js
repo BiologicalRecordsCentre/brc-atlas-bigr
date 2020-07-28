@@ -21,11 +21,11 @@ function convertCoords(fromProjection, toProjection, x, y) {
 /**
  * Given a grid reference (British National Grid, Irish Grid or UTM zone 30N shorthand),
  * a two-letter code defining the requested output projection, and a string indicating
- * the shape of the required 'symbol', this function returns a GeoJson feature object.
+ * the shape of the required 'symbol', this function returns a GeoJson pth geometry object.
  * @param {string} gr - the grid reference.
  * @param {string} toProjection - two letter code specifying the required output CRS.
  * @param {string} shape - string specifying the requested output shape type.
- * @returns {object} - a GeoJson Feature object.
+ * @returns {object} - a GeoJson path geometry object.
  * @todo Extend to return all symbol types
  */
 export function getGjson (gr, toProjection, shape) {
@@ -97,10 +97,7 @@ export function getGjson (gr, toProjection, shape) {
   }
 
   return {
-      "type": "Feature",
-      "geometry": {
-          "type": type,
-          "coordinates": coords
-      }
+      "type": type,
+      "coordinates": coords
     }
 }

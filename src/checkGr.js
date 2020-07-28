@@ -11,7 +11,7 @@ function invalidGridRef(gr) {
  * GR precision in metres and the prefix.
  * If an invalid grid reference is supplied throws an error.
  * @param {string} gr - the grid reference.
- * @returns {object} - of the form {precision: n, prefix: 'prefix'}.
+ * @returns {object} Object of the form {precision: n, prefix: 'prefix'}.
  */
 export function checkGr (gr) {
 

@@ -1,7 +1,7 @@
-/** @module src/quadrants */
+/** @module src/tetrads */
 
 /** @constant
-  * @description This object specifies the x, y offsets associated with suffixes for quandrant grid refs.
+  * @description This object specifies the x, y offsets associated with suffixes for tetrad grid refs.
   * @type {Object}
 */
 
