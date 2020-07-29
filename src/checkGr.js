@@ -1,5 +1,5 @@
 /** @module src/checkGr */
-import km100s from './km100'
+import km100s from './km100.js'
 
 function invalidGridRef(gr) {
   throw `The value '${gr}' is not recognised as a valid grid reference.` 

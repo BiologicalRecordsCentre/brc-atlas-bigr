@@ -1,9 +1,9 @@
 /** @module src/getGjson */
-import { checkGr } from './checkGr'
-import { getCentroid } from './getCentroid'
+import { checkGr } from './checkGr.js'
+import { getCentroid } from './getCentroid.js'
 import proj4 from 'proj4'
-import projections from './projections'
-import km100s from './km100'
+import projections from './projections.js'
+import km100s from './km100.js'
 
 function convertCoords(fromProjection, toProjection, x, y) {
 

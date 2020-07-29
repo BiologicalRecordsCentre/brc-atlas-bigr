@@ -1,10 +1,10 @@
 /** @module src/getCentroid */
-import { checkGr } from './checkGr'
+import { checkGr } from './checkGr.js'
 import proj4 from 'proj4'
-import projections from './projections'
-import qOffsets from './quadrants'
-import tOffsets from './tetrads'
-import km100s from './km100'
+import projections from './projections.js'
+import qOffsets from './quadrants.js'
+import tOffsets from './tetrads.js'
+import km100s from './km100.js'
 
 /**
  * Given a grid reference (British National Grid, Irish Grid or UTM zone 30N shorthand),
