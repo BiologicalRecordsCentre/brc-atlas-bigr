@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: src/km100</title>
+    <title>JSDoc: Module: src/getLowerResGrs</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: src/km100</h1>
+    <h1 class="page-title">Module: src/getLowerResGrs</h1>
 
     
 
@@ -29,8 +29,6 @@
 <header>
     
         
-            
-        
     
 </header>
 
@@ -38,94 +36,6 @@
     <div class="container-overview">
     
         
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="module:src/km100"><span class="type-signature">(constant) </span>module:src/km100<span class="type-signature"> :object</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    The default export from this module is an object with a propertyfor every 100 km square reference for Britain (Brtish National Grid),Ireland (Irish National Grid) and the Channel Islands (abbreviated UTM 30N).Each grid reference references an object that has properties x, y and proj.The x and y coordinates represent the centroid of the 100 km square in thecoordinate reference system corresponding to the aforementioned areas, respectivelyepsg:27700, epsg:29903 and epsg:32630. Another property, proj, indicates the region/CRSwith two letter codes, respectively gb, ir and ci.<p>An example of the object referenced through the property 'SO' is shown below:</p><pre>{  "x": 3,  "y": 2,  "proj": "gb"}</pre>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="km100.js.html">km100.js</a>, <a href="km100.js.html#line529">line 529</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         
     
@@ -144,30 +54,83 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
-<h4 class="name" id=".a100km"><span class="type-signature">(static, constant) </span>a100km<span class="type-signature"> :array</span></h4>
 
+    
+
+    
+    <h4 class="name" id=".getLowerResGrs"><span class="type-signature">(static) </span>getLowerResGrs<span class="signature">(gr)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
 
 
 
 <div class="description">
-    This the array from which the default object is derived. If youneed to work with an array of objects where the 100 km grid reference is a propertyof the object alongside x, y, and proj, you can use this.
+    Given a grid reference (British National Grid, Irish Grid, UTM zone 30N shorthand),return an object with a corresponsing GR for each precision. For all precisions higherthan the precision of the passed in GR, the return GR is set to null. In the specialreturned Quadrant (5 km) grid references are in an array to allow for the case wherethe input grid reference is a tetrad and overlaps more than one quadrant.
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<span class="param-type">array</span>
+                <td class="name"><code>gr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
 
 
-        </li>
-    </ul>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Grid reference.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
 
 
 
@@ -202,7 +165,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="km100.js.html">km100.js</a>, <a href="km100.js.html#line9">line 9</a>
+        <a href="getLowerResGrs.js.html">getLowerResGrs.js</a>, <a href="getLowerResGrs.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -218,9 +181,43 @@
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
         
+<div class="param-desc">
+    - of the form {p100000: 'gr-100km', hectad: 'gr-hectad', quadrant: ['gr_quad1', ...], tetrad: 'gr-tetrad', ...}, with a property for each precisions.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
     
 
+
+
+
+
+        
     
 
     
