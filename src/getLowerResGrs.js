@@ -19,7 +19,7 @@ export function getLowerResGrs (gr) {
   const ret = {
     p100000: grType.prefix, 
     p10000: null, 
-    p5000: [], 
+    p5000: grType.precision <= 5000 ? [] : null, 
     p2000: null, 
     p1000: null, 
     p100: null, 
@@ -28,9 +28,12 @@ export function getLowerResGrs (gr) {
   }
 
   // Set the passed in GR in the return value
-  ret[`p${grType.precision}`] = gr
-
-  // Get centroid 
+  if (grType.precision === 5000) {
+    ret.p5000.push(gr)
+  } else {
+    ret[`p${grType.precision}`] = gr
+  }
+  
   const c = getCentroid(gr, grType.projection).centroid
   const precisions = [10000, 5000, 2000, 1000, 100, 10, 1].filter(p => p > grType.precision)
   const grs = getGrFromCoords(c[0], c[1], grType.projection, grType.projection, precisions)
@@ -38,7 +41,7 @@ export function getLowerResGrs (gr) {
   precisions.forEach(p => {
     if (p === 5000) {
       if (grType.precision === 2000) {
-        const hectad = gr.substring(0,gr.length-2)
+        const hectad = gr.substring(0,gr.length-1)
         if ('ABCFGHKLM'.indexOf(gr.substr(-1)) > -1) {
           ret.p5000.push(`${hectad}SW`)
         }
