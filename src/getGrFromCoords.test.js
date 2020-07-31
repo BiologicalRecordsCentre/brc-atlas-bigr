@@ -1,8 +1,7 @@
 import { getGrFromCoords } from './getGrFromCoords.js'
 
-//TODO - Channel Island tests
+describe('Check GRs returned from eastings and northings (or long/lats)', function () {
 
-describe('Check British GRs returned from British eastings and northings', function () {
   test('Correct British GRs returned at all precisions for British easting northing', () => {
     const grs = getGrFromCoords(352293, 394220, 'gb', 'gb', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
     expect(grs).toEqual({
@@ -15,10 +14,8 @@ describe('Check British GRs returned from British eastings and northings', funct
       p10: 'SJ52299422', 
       p1: 'SJ5229394220'});
   })
-})
 
-describe('Check that GRs from bottom left corner of 100 km square are of proper length', function () {
-  test('Check GRs are properly padded with zeros', () => {
+  test('Check that GRs from bottom left corner of 100 km square are of proper length', () => {
     const grs = getGrFromCoords(400000.5, 200000.5, 'gb', 'gb', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
     expect(grs).toEqual({
       p100000: 'SP',
@@ -30,9 +27,7 @@ describe('Check that GRs from bottom left corner of 100 km square are of proper 
       p10: 'SP00000000',
       p1: 'SP0000000000'});
   })
-})
 
-describe('Check British GRs returned from WGS84 long and lats', function () {
   test('Correct British GRs returned at all precisions for WGS84 long lats', () => {
     const grs = getGrFromCoords(-2.71968720, 53.44258395, 'wg', 'gb', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
     expect(grs).toEqual({
@@ -45,9 +40,7 @@ describe('Check British GRs returned from WGS84 long and lats', function () {
       p10: 'SJ52299422', 
       p1: 'SJ5229394220'});
   })
-})
 
-describe('Check Irish GRs returned from Irish eastings and northings', function () {
   test('Correct Irish GRs returned at all precisions for Irish easting northing', () => {
     const grs = getGrFromCoords(204024, 253038, 'ir', 'ir', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
     expect(grs).toEqual({
@@ -60,11 +53,8 @@ describe('Check Irish GRs returned from Irish eastings and northings', function 
       p10: 'N04025303', 
       p1: 'N0402453038'});
   })
-})
 
-describe('Check Irish GRs returned from WGS84 long lats', function () {
   test('Correct Irish GRs returned at all precisions for WGS84 long lats', () => {
-
     const grs = getGrFromCoords(-7.94005389, 53.52749715, 'wg', 'ir', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
     expect(grs).toEqual({
       p100000: 'N', 
@@ -76,9 +66,7 @@ describe('Check Irish GRs returned from WGS84 long lats', function () {
       p10: 'N04025303', 
       p1: 'N0402453038'});
   })
-})
 
-describe('Check CI GRs returned from CI easting and northings', function () {
   test('Correct CI GRs returned at all precisions for CI easting and northings', () => {
 
     const grs = getGrFromCoords(530769, 5476923, 'ci', 'ci', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
@@ -92,4 +80,18 @@ describe('Check CI GRs returned from CI easting and northings', function () {
       p10: 'WV30767692',
       p1: 'WV3076976923'});
   })
+
+  test('Null GRs returned when easting northing not within grid range of output projection', () => {
+    const grs = getGrFromCoords(400000.5, 200000.5, 'gb', 'ir', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
+    expect(grs).toEqual({
+      p100000: null,
+      p10000: null,
+      p5000: null,
+      p2000: null,
+      p1000: null,
+      p100: null,
+      p10: null,
+      p1: null});
+  })
 })
+

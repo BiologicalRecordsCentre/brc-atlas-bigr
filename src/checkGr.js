@@ -8,10 +8,10 @@ function invalidGridRef(gr) {
 /**
  * Given a grid reference (British National Grid, Irish Grid or UTM zone 30N shorthand),
  * check that ths is a valid GR. If it is, return an object which includes the 
- * GR precision in metres and the prefix.
+ * GR precision in metres, the prefix and the two-letter projection code.
  * If an invalid grid reference is supplied throws an error.
  * @param {string} gr - the grid reference.
- * @returns {object} Object of the form {precision: n, prefix: 'prefix'}.
+ * @returns {object} Object of the form {precision: n, prefix: 'prefix', projection: 'code'}.
  */
 export function checkGr (gr) {
 
@@ -32,7 +32,7 @@ export function checkGr (gr) {
   
   if (!km100) invalidGridRef(gr) 
 
-  const ret = {precision: null, prefix: prefix}
+  const ret = {precision: null, prefix: prefix, projection: km100.proj}
 
   if (r100km.test(gr)) {
 

@@ -41,7 +41,18 @@ export function getGrFromCoords (x, y, fromProjection, toProjection, precisions)
   }
 
   if(!km100) {
-    throw('The output coordinates do not fall within the range of 100 km grid squares defined for the output projection.')
+    // The output coordinates do not fall within the range of 100 km grid squares defined for the output projection.
+    // Return an empty array.
+    return {
+      p100000: null,
+      p10000: null,
+      p5000: null,
+      p2000: null,
+      p1000: null,
+      p100: null,
+      p10: null,
+      p1: null
+    }
   }
 
   const grs = {}
