@@ -2,7 +2,20 @@ import { getGrFromCoords } from './getGrFromCoords.js'
 
 describe('Check GRs returned from eastings and northings (or long/lats)', function () {
 
-  test('Correct British GRs returned at all precisions for British easting northing', () => {
+  test('Correct British GRs returned at all precisions for British easting northing #1', () => {
+    const grs =   getGrFromCoords(334550, 467850, 'gb', 'gb', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
+    expect(grs).toEqual({
+      p100000: 'SD',
+      p10000: 'SD36',
+      p5000: 'SD36NW',
+      p2000: 'SD36N',
+      p1000: 'SD3467',
+      p100: 'SD345678',
+      p10: 'SD34556785',
+      p1: 'SD3455067850'});
+  })
+
+  test('Correct British GRs returned at all precisions for British easting northing #2', () => {
     const grs = getGrFromCoords(352293, 394220, 'gb', 'gb', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
     expect(grs).toEqual({
       p100000: 'SJ', 
@@ -73,7 +86,7 @@ describe('Check GRs returned from eastings and northings (or long/lats)', functi
     expect(grs).toEqual({
       p100000: 'WV',
       p10000: 'WV37',
-      p5000: 'WV37',
+      p5000: 'WV37NW',
       p2000: 'WV37D',
       p1000: 'WV3076',
       p100: 'WV307769',

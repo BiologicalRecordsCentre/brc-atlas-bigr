@@ -16,7 +16,7 @@ import tOffsets from './tetrads.js'
  * @param {string} fromProjection - two letter code for projection of the passed in coords.
  * @param {string} toProjection - two letter code specifying the required output projection.
  * @param {array<number>} precisions - array of numbers corresponding to the precisions of the requested grid references.
- * @returns {object} - of the form {hectad: 'gr-hectad', 6fig: 'gr-6fig'} etc, with a property for each of the requested grid reference precisions.
+ * @returns {object} - of the form {p10000: 'gr-hectad', p100: 'gr-6fig'} etc, with a property for each of the requested grid reference precisions.
  */
 export function getGrFromCoords (x, y, fromProjection, toProjection, precisions) {
 
@@ -91,7 +91,7 @@ export function getGrFromCoords (x, y, fromProjection, toProjection, precisions)
             if (rx >= qOffsets[suffix].x &&
               rx < qOffsets[suffix].x + 5000 && 
               ry >= qOffsets[suffix].y &&
-              ry < qOffsets[suffix].x + 5000) {
+              ry < qOffsets[suffix].y + 5000) {
               gr = `${gr}${suffix.toUpperCase()}`
               break
             }
