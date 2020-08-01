@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: src/checkGr</title>
+    <title>JSDoc: Module: src/pntToArea</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: src/checkGr</h1>
+    <h1 class="page-title">Module: src/pntToArea</h1>
 
     
 
@@ -64,7 +64,7 @@
     
 
     
-    <h4 class="name" id=".checkGr"><span class="type-signature">(static) </span>checkGr<span class="signature">(gr)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id=".pntToArea"><span class="type-signature">(static) </span>pntToArea<span class="signature">(lon, lat)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
     
@@ -72,7 +72,7 @@
 
 
 <div class="description">
-    Given a grid reference (British National Grid, Irish Grid or UTM zone 30N shorthand),check that ths is a valid GR. If it is, return an object which includes the GR precision in metres, the prefix and the two-letter projection code.If an invalid grid reference is supplied throws an error.
+    Given a WGS 84 lon, lat pair, return the two letter code corresponding to the areathat the point is in. The three polygons describe the regions covered by the 100 kmsquares for the British, Irish and Channel Island coordinate systems. These areas areexclusive. Where they overlap, e.g. British and Irish, they have been divided by a linethrough the Irish see roughly midway between the land masses. For the Channel Islandsand Britain, the CI UTM 30 grid is truncated where it overlaps the British grid. Thefunction returns the two-letter code corresponding to the area: gb, ir or ci. It returns null if the point doesn't fall within any of these areas.
 </div>
 
 
@@ -108,13 +108,13 @@
 
         <tr>
             
-                <td class="name"><code>gr</code></td>
+                <td class="name"><code>lon</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
             
@@ -124,7 +124,30 @@
 
             
 
-            <td class="description last">the grid reference.</td>
+            <td class="description last">Longitude.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lat</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Latitude.</td>
         </tr>
 
     
@@ -165,7 +188,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkGr.js.html">checkGr.js</a>, <a href="checkGr.js.html#line16">line 16</a>
+        <a href="pntToArea.js.html">pntToArea.js</a>, <a href="pntToArea.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -194,7 +217,7 @@
 
         
 <div class="param-desc">
-    Object of the form {precision: n, prefix: 'prefix', projection: 'code'}.
+    - Two-letter code corresponding to the area, or null.
 </div>
 
 
@@ -205,7 +228,7 @@
     </dt>
     <dd>
         
-<span class="param-type">object</span>
+<span class="param-type">string</span>
 
 
     </dd>
