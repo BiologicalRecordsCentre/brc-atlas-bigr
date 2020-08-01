@@ -3,3 +3,5 @@
 [JSDoc API documentation](https://biologicalrecordscentre.github.io/brc-atlas-bigr/out/)
 
 [NPM package](https://www.npmjs.com/package/brc-atlas-bigr)
+
+[Examples of use](https://biologicalrecordscentre.github.io/brc-atlas-bigr/)
