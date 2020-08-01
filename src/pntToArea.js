@@ -13,8 +13,8 @@ const polyCi = [[-1.614831,49.644257],[-1.639721,48.744984],[-3,48.753013],[-3,4
  * exclusive. Where they overlap, e.g. British and Irish, they have been divided by a line
  * through the Irish see roughly midway between the land masses. For the Channel Islands
  * and Britain, the CI UTM 30 grid is truncated where it overlaps the British grid. The
- * function returns the two-letter code corresponding to the area: gb, ir or ci. It 
- * returns null if the point doesn't fall within any of these areas.
+ * function returns the two-letter code corresponding to the area: gb, ir or ci.
+ * It returns null if the point doesn't fall within any of these areas.
  * @param {number} lon - Longitude.
  * @param {number} lat - Latitude.
  * @returns {string} - Two-letter code corresponding to the area, or null.
