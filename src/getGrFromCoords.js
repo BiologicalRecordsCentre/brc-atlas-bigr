@@ -31,6 +31,14 @@ export function getGrFromCoords (x, y, fromProjection, toProjection, precisions)
       toProjection = pntToArea(lonlat[0], lonlat[1])
     }
   }
+
+  if (!toProjection) {
+    const grs = {}
+    precisions.forEach(p => {
+      grs[`p${p}`] = null
+    })
+    return grs
+  }
   
   // Convert input coordinates if the input projection does not match requested output projection
   if (fromProjection !== toProjection)  {

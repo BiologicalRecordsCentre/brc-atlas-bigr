@@ -145,5 +145,18 @@ describe('Check GRs returned from eastings and northings (or long/lats)', functi
       p10: 'S00049432',
       p1: 'S0004994328'});
   })
+
+  test('Check lat/lon from outside all areas, without specified, out proj returns nulls', () => {
+    const grs = getGrFromCoords(-12, 53, 'wg', '', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
+    expect(grs).toEqual({
+      p100000: null,
+      p10000: null,
+      p5000: null,
+      p2000: null,
+      p1000: null,
+      p100: null,
+      p10: null,
+      p1: null});
+  })
 })
 
