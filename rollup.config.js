@@ -45,7 +45,7 @@ export default [
 	// `file` and `format` for each target)
 	{
     input: 'index.js',
-    external: ['proj4'],
+    external: ['proj4', 'point-in-polygon'],
 		output: [
 			{ file: pkg.main, format: 'cjs' },
 			{ file: pkg.module, format: 'es' }

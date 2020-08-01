@@ -1,35 +1,38 @@
-// Utility script to take a geojson file and reduce it's size by removing the decimal
-// portion of all coordinates. This is useful for CRS where the map units are metres.
+// Utility script to take a geojson file and reduce it's size by rounding decimal
+// portion of all coordinates to a given number of decimal places. To remove the
+// decimal portion, then specify the number of decimal places as zero. 
+// This is useful for CRS where the map units are metres.
 // It can considerably reduce the size of a geojson file. It also removes any
 // attribute properties. Use like this:
-// node reduce-geojson.js <input-file.geojson> <output-file.geojson>
+// node reduce-geojson.js <input-file.geojson> <output-file.geojson> <decimal places>
 
-const fs = require('fs')
+//const fs = require('fs')
+import fs from 'fs'
 
-if (process.argv.length !== 4) {
-    console.error("You must specify two arguments - and input file and an outputfile.")
+if (process.argv.length !== 5) {
+    console.error("You must specify three arguments - and input file and an outputfile and number of decimal places.")
     process.exit(1)
 }
 
-function truncateCoords(arr) {
+function roundCoords(arr) {
   // Iterate over the array
   return arr.map(function(e) {
     // If the element is an array call the function recursively
-    // otherwise remove decimal part
-    return Array.isArray(e) ? truncateCoords(e) : Math.floor(e) 
+    // otherwise round the numbers
+    return Array.isArray(e) ? roundCoords(e) : Math.round(e * Math.pow(10, process.argv[4])) / Math.pow(10, process.argv[4])
   })
 }
 
 if (fs.existsSync(process.argv[2])) {
   let input = fs.readFileSync(process.argv[2])
   let json = JSON.parse(input)
-  newFeatures = json.features.map(function(f){
+  let newFeatures = json.features.map(function(f){
     // Does not output any feature properties
     const fNew =  {
       type: f.type,
       geometry: {
         type: f.geometry.type,
-        coordinates: truncateCoords(f.geometry.coordinates)
+        coordinates: roundCoords(f.geometry.coordinates)
       }
     }
     return fNew
