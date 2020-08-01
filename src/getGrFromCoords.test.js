@@ -106,5 +106,44 @@ describe('Check GRs returned from eastings and northings (or long/lats)', functi
       p10: null,
       p1: null});
   })
+
+  test('Check CI area GRs returned for lat/lon input in CI area and no ouput proj specified', () => {
+    const grs = getGrFromCoords(-2, 49, 'wg', '', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
+    expect(grs).toEqual({
+      p100000: 'WV',
+      p10000: 'WV72',
+      p5000: 'WV72NW',
+      p2000: 'WV72I',
+      p1000: 'WV7327',
+      p100: 'WV731279',
+      p10: 'WV73142793',
+      p1: 'WV7314227937'});
+  })
+
+  test('Check British area GRs returned for lat/lon input in British area and no ouput proj specified', () => {
+    const grs = getGrFromCoords(-2, 53, 'wg', '', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
+    expect(grs).toEqual({
+      p100000: 'SK',
+      p10000: 'SK04',
+      p5000: 'SK04SW',
+      p2000: 'SK04C',
+      p1000: 'SK0044',
+      p100: 'SK000447',
+      p10: 'SK00094474',
+      p1: 'SK0009744742'});
+  })
+
+  test('Check Irish area GRs returned for lat/lon input in Irish area and no ouput proj specified', () => {
+    const grs = getGrFromCoords(-8, 53, 'wg', '', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
+    expect(grs).toEqual({
+      p100000: 'S',
+      p10000: 'S09',
+      p5000: 'S09SW',
+      p2000: 'S09C',
+      p1000: 'S0094',
+      p100: 'S000943',
+      p10: 'S00049432',
+      p1: 'S0004994328'});
+  })
 })
 
