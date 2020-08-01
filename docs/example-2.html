@@ -41,7 +41,7 @@
   </div>
 
   <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="https://unpkg.com/brc-atlas-bigr/dist/bigr.min.umd.js"></script>
+  <script src="https://unpkg.com/brc-atlas-bigr@1.11.1/dist/bigr.min.umd.js"></script>
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
   
@@ -58,6 +58,9 @@
     map.on("zoomend", reset)
     map.on("mousemove", function(e) {
       var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000])
+
+      if (!grs.p100000) return
+
       var ftr1 = {
         type: 'Feature',
         geometry: bigr.getGjson(grs.p100000, 'wg', 'square')
