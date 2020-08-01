@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>British Isles Grid Reference Library example 1</title>
+  <style>
+    body {
+      font-size: 1.0em;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .content {
+      max-width: 960px;
+      margin: auto;
+    }
+    #map {
+      width: 960px;
+      height: 500px;
+    }
+    svg {
+      position: relative;
+    }
+    path {
+      fill: #000;
+      fill-opacity: .2;
+      stroke-width: 1px;
+    }
+    .c0 {
+      stroke: #fff;
+    }
+    .c1 {
+      stroke: red;
+    }
+    .c2 {
+      stroke: blue;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <div id="map"></div>
+  </div>
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://unpkg.com/brc-atlas-bigr@1.11.0/dist/bigr.min.umd.js"></script>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+  
+  <script>
+    var map = new L.Map("map", {center: [55, -5], zoom: 6})
+      .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"))
+
+    var svg = d3.select(map.getPanes().overlayPane).append("svg")
+    var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+    var transform = d3.geoTransform({point: projectPoint})
+    var path = d3.geoPath().projection(transform)
+    var ftrSquares, squares
+
+    map.on("zoomend", reset)
+    map.on("mousemove", function(e) {
+      var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000])
+      var ftr1 = {
+        type: 'Feature',
+        geometry: bigr.getGjson(grs.p100000, 'wg', 'square')
+      }
+      var ftr2 = {
+        type: 'Feature',
+        geometry: bigr.getGjson(grs.p10000, 'wg', 'square')
+      }
+      var ftr3 = {
+        type: 'Feature',
+        geometry: bigr.getGjson(grs.p5000, 'wg', 'circle')
+      }
+      ftrSquares=[ftr1, ftr2, ftr3] 
+      squares = g.selectAll("path")
+        .data(ftrSquares)
+        
+      squares.enter()
+        .append("path")
+        .attr("d", path)
+        .attr("class", function(d, i) {
+          return 'c' + i
+        })
+      reset()
+    })
+
+    function reset() {
+      var bounds = path.bounds({
+        type: "FeatureCollection",
+        features: ftrSquares
+      })
+      var topLeft = bounds[0]
+      var bottomRight = bounds[1]
+
+      svg.attr("width", bottomRight[0] - topLeft[0])
+        .attr("height", bottomRight[1] - topLeft[1])
+        .style("left", topLeft[0] + "px")
+        .style("top", topLeft[1] + "px")
+
+      g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")")
+
+      squares.attr("d", path)
+    }
+    function projectPoint(x, y) {
+      var point = map.latLngToLayerPoint(new L.LatLng(y, x))
+      this.stream.point(point.x, point.y)
+    }
+  </script>
+</body>
+</html>
