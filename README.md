@@ -23,6 +23,6 @@ or include them in code directly from a CDN, e.g:
 ```
 
 ## API documentation and code examples
-For details of the API, view the [JSDoc API documentation](https://github.com/BiologicalRecordsCentre/brc-atlas-bigr/tree/master/out/).
+For details of the API, view the [JSDoc API documentation](https://biologicalrecordscentre.github.io/brc-atlas-bigr/api).
 
 There are also a number of [working examples](https://biologicalrecordscentre.github.io/brc-atlas-bigr/).

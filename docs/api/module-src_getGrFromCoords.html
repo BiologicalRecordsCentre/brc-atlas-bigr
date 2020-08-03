@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: src/pntToArea</title>
+    <title>JSDoc: Module: src/getGrFromCoords</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: src/pntToArea</h1>
+    <h1 class="page-title">Module: src/getGrFromCoords</h1>
 
     
 
@@ -64,7 +64,7 @@
     
 
     
-    <h4 class="name" id=".pntToArea"><span class="type-signature">(static) </span>pntToArea<span class="signature">(lon, lat)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id=".getGrFromCoords"><span class="type-signature">(static) </span>getGrFromCoords<span class="signature">(x, y, fromProjection, toProjection, precisions)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -72,7 +72,7 @@
 
 
 <div class="description">
-    Given a WGS 84 lon, lat pair, return the two letter code corresponding to the areathat the point is in. The three polygons describe the regions covered by the 100 kmsquares for the British, Irish and Channel Island coordinate systems. These areas areexclusive. Where they overlap, e.g. British and Irish, they have been divided by a linethrough the Irish see roughly midway between the land masses. For the Channel Islandsand Britain, the CI UTM 30 grid is truncated where it overlaps the British grid. Thefunction returns the two-letter code corresponding to the area: gb, ir or ci.It returns null if the point doesn't fall within any of these areas.
+    Given a coordinate pair (British National Grid, Irish Grid, UTM zone 30N shorthand or WGS84),a two-letter code defining the projection of the passed in coordinates,a two-letter code defining the required output projection, and an array of numbersindicating the required output precisions, returns an object with the grid referencesat the requested precisions in the requested projection. If the requested projection isan empty string, automatic selection will be used based on location of input coords.
 </div>
 
 
@@ -108,7 +108,7 @@
 
         <tr>
             
-                <td class="name"><code>lon</code></td>
+                <td class="name"><code>x</code></td>
             
 
             <td class="type">
@@ -124,14 +124,14 @@
 
             
 
-            <td class="description last">Longitude.</td>
+            <td class="description last">the x coordinate (longitude if in WGS 84).</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>lat</code></td>
+                <td class="name"><code>y</code></td>
             
 
             <td class="type">
@@ -147,7 +147,76 @@
 
             
 
-            <td class="description last">Latitude.</td>
+            <td class="description last">the y coordinate (latitude if in WGS 84).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fromProjection</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">two letter code for projection of the passed in coords.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>toProjection</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">two letter code specifying the required output projection - leave empty for automatic selection.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>precisions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of numbers corresponding to the precisions of the requested grid references.</td>
         </tr>
 
     
@@ -188,7 +257,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pntToArea.js.html">pntToArea.js</a>, <a href="pntToArea.js.html#line22">line 22</a>
+        <a href="getGrFromCoords.js.html">getGrFromCoords.js</a>, <a href="getGrFromCoords.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -217,7 +286,7 @@
 
         
 <div class="param-desc">
-    - Two-letter code corresponding to the area, or null.
+    - of the form {p10000: 'gr-hectad', p100: 'gr-6fig'} etc, with a property for each of the requested grid reference precisions.
 </div>
 
 
@@ -228,7 +297,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
     </dd>
@@ -262,7 +331,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Aug 03 2020 17:54:45 GMT+0100 (British Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Aug 03 2020 18:05:32 GMT+0100 (British Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

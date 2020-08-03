@@ -12,7 +12,7 @@
     "test": "jest",
     "prepare": "node script-prepublish.js",
     "build": "rollup --config",
-    "docs": "jsdoc ./src/ -R README.md"
+    "docs": "jsdoc ./src/ -R README.md -d ./docs/api"
   },
   "author": "CEH Biological Records Centre",
   "license": "GPL-3.0-only",
