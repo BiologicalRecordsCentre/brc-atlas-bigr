@@ -2,39 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>British Isles Grid Reference Library example 1</title>
+  <title>British Isles Grid Reference (bigr) Library example 1</title>
   <style>
-    body {
-      font-size: 1.0em;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    .content {
-      max-width: 960px;
-      margin: auto;
-    }
     #map {
-      width: 960px;
+      width: 700px;
       height: 500px;
     }
+    .flex-container {
+        display: flex;
+    }
+    #grs {
+      width: 200px;
+      margin-left: 1em;
+    }  
   </style>
 </head>
 <body>
+  
   <div class="content">
+    <h1>Convert map position to grid reference</h1>
+    <h2>Using the British Isles Grid Reference (bigr) library</h2>
+
+    <div class="flex-container">
     <div id="map"></div>
-    <p>100 km: <span id="p100000"></span></p>
-    <p>Hectad: <span id="p10000"></span></p>
-    <p>Quadrant: <span id="p5000"></span></p>
-    <p>Tetrad: <span id="p2000"></span></p>
-    <p>Monad: <span id="p1000"></span></p>
-    <p>6 figure: <span id="p100"></span></p>
-    <p>8 figure: <span id="p10"></span></p>
-    <p>10 figure: <span id="p1"></span></p>
+    <div id="grs">
+      <p>100 km: <span id="p100000"></span></p>
+      <p>Hectad: <span id="p10000"></span></p>
+      <p>Quadrant: <span id="p5000"></span></p>
+      <p>Tetrad: <span id="p2000"></span></p>
+      <p>Monad: <span id="p1000"></span></p>
+      <p>6 figure: <span id="p100"></span></p>
+      <p>8 figure: <span id="p10"></span></p>
+      <p>10 figure: <span id="p1"></span></p>
+    </div>
+    </div>
+    <p>
+      Include the Leaflet JS and CSS (here from CDNs).
+    </p>
+    <pre><code class="html">
+    &lt;script src=&quot;https://unpkg.com/leaflet@1.6.0/dist/leaflet.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/leaflet@1.6.0/dist/leaflet.css&quot;&gt;
+    </code></pre>
+
+    <p>
+      Include the bigr JS (here from a CDN).
+    </p>
+    <pre><code class="html">
+    &lt;script src=&quot;https://unpkg.com/brc-atlas-bigr/dist/bigr.min.umd.js&quot;&gt;&lt;/script&gt;
+    </code></pre>
+    <p>
+      The previous example was for the latest version. To included a specific version from the same
+      CDN, specify a version number as in this example.
+    </p>
+    <pre><code class="html">
+    &lt;script src=&quot;https://unpkg.com/brc-atlas-bigr@1.11.1/dist/bigr.min.umd.js&quot;&gt;&lt;/script&gt;
+      </code></pre>
+
+    <p>
+      Create the Leaflet map.
+    </p>
+    <pre><code class="javascript">
+    var map = new L.Map("map", {center: [55, -5], zoom: 6})
+      .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"))
+    </code></pre>
+
+    <p>
+      Bind function to Leaflet mousemove event that takes the lat/lng of the mouse position,
+      gets the corresponding grid references and updates page elements to display them.
+    </p>
+    <pre><code class="javascript">
+    map.on("mousemove", function(e) {
+      var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
+      Object.keys(grs).forEach(function(p){
+        document.getElementById(p).innerText = grs[p]
+      })
+    })
+    </code></pre>
+
+    <p>
+      This is the call to the bigr library that gets the grid references. The third argument - 'wg' - indicates that
+      the passed in coordinates are longitude and latitude (WGS 84). The empty string passed as a fourth argument
+      tells the library to determine the output grid reference system (British, Irish or Channel Islands) depending
+      on the input position. The fifth argument is an array of precisions - in metres - indicating which grid references
+      to return. In this case all precisions are requested.
+    </p>
+    <pre><code class="javascript">
+    var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000, 2000, 1000, 100, 10, 1])
+    </code></pre>
   </div>
 
-  <script src="https://unpkg.com/brc-atlas-bigr@1.11.1/dist/bigr.min.umd.js"></script>
+  <link rel="stylesheet" href="example.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/a11y-light.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <script src="https://unpkg.com/brc-atlas-bigr/dist/bigr.min.umd.js"></script>
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-  
+
   <script>
     var map = new L.Map("map", {center: [55, -5], zoom: 6})
       .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"))

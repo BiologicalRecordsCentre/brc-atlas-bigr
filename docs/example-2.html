@@ -2,16 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>British Isles Grid Reference Library example 1</title>
+  <title>British Isles Grid Reference Library example 2</title>
   <style>
-    body {
-      font-size: 1.0em;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    .content {
-      max-width: 960px;
-      margin: auto;
-    }
     #map {
       width: 960px;
       height: 500px;
@@ -37,13 +29,115 @@
 </head>
 <body>
   <div class="content">
+    <h1>Display grid reference geometry on map</h1>
+    <h2>Using the British Isles Grid Reference (bigr) library</h2>
     <div id="map"></div>
+    <p>
+      This example uses D3 to manage an SVG element which is used to display grid
+      reference geometry on the map. The geometry itself is generated as geoJson
+      by the bigr library and that is what will be described in this example. To
+      understand more about how D3 and Leaflet work together, start with 
+      <a href='https://bost.ocks.org/mike/leaflet/'>this example</a>.
+    </p>
+    <p>
+      This example doesn't describe how to use Leaflet either. You can see another
+      simple example which describes the basics of generating a Leaflet map here:
+      <a href='./example-1.html'>this example</a>.
+    </p>
+    <p>
+      Include the bigr JS (here from a CDN).
+    </p>
+    <pre><code class="html">
+    &lt;script src=&quot;https://unpkg.com/brc-atlas-bigr/dist/bigr.min.umd.js&quot;&gt;&lt;/script&gt;
+    </code></pre>
+    <p>
+      The previous example was for the latest version. To included a specific version from the same
+      CDN, specify a version number as in this example.
+    </p>
+    <pre><code class="html">
+    &lt;script src=&quot;https://unpkg.com/brc-atlas-bigr@1.11.1/dist/bigr.min.umd.js&quot;&gt;&lt;/script&gt;
+      </code></pre>
+
+    <p>
+      In this example the interesting code is in the function bound to Leaflet's mousemove event.
+    </p>
+    <pre><code class="javascript">
+      map.on("mousemove", function(e) {
+        var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000])
+  
+        if (!grs.p100000) return
+  
+        var ftr1 = {
+          type: 'Feature',
+          geometry: bigr.getGjson(grs.p100000, 'wg', 'square')
+        }
+        var ftr2 = {
+          type: 'Feature',
+          geometry: bigr.getGjson(grs.p10000, 'wg', 'square')
+        }
+        var ftr3 = {
+          type: 'Feature',
+          geometry: bigr.getGjson(grs.p5000, 'wg', 'circle')
+        }
+        ftrSquares=[ftr1, ftr2, ftr3] 
+        squares = g.selectAll("path")
+          .data(ftrSquares)
+          
+        squares.enter()
+          .append("path")
+          .attr("d", path)
+          .attr("class", function(d, i) {
+            return 'c' + i
+          })
+        reset()
+      })
+    </code></pre>
+    <p>
+      First get the grid references of interest from the bigr library at the mouse position
+      (see <a href='example-1.html'>for more explanation</a>.) In this example we are asking
+      only for 100 km squares, hectads and quadrants (100000, 10000 and 5000 m precision respecively).
+    </p>
+    <pre><code class="javascript">
+    var grs = bigr.getGrFromCoords(e.latlng.lng, e.latlng.lat, 'wg', '', [100000, 10000, 5000])
+    </code></pre>
+    <p>
+      Don't do anything if the mouse position is outside any grid areas.
+    </p>
+    <pre><code class="javascript">
+    if (!grs.p100000) return
+    </code></pre>
+    <p>
+      Use the bigr libraries' 'getGjson' function to get the geometry associated with each of the 
+      three types of grid reference requested and use these geometries to construct
+      geoJson features which D3 can work with to generate SVG path elements. 
+      In this example we're asking for squares
+      for 100 km and 10 km (hectad) grid references and circles for 5 km (quadrant)
+      grid references. Below is the code which creates the geoJson feature from  
+      a polygon describing a circle for a quandrant grid reference.
+    </p>
+    <pre><code class="javascript">
+    var ftr3 = {
+      type: 'Feature',
+      geometry: bigr.getGjson(grs.p5000, 'wg', 'circle')
+    }
+    </code></pre>
+    <p>
+      The remaining code in the mousemove handler is taking care of displaying the 
+      geometry as SVG over the Leaflet map using D3.
+    </p>
   </div>
 
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="https://unpkg.com/brc-atlas-bigr@1.11.1/dist/bigr.min.umd.js"></script>
+  <link rel="stylesheet" href="example.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/a11y-light.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <script src="https://unpkg.com/brc-atlas-bigr/dist/bigr.min.umd.js"></script>
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+  <script src="https://d3js.org/d3.v5.min.js"></script>
   
   <script>
     var map = new L.Map("map", {center: [55, -5], zoom: 6})
