@@ -39,5 +39,7 @@ if (fs.existsSync(process.argv[2])) {
   })
   json.features = newFeatures
   fs.writeFileSync(process.argv[3], JSON.stringify(json))
+} else {
+  console.log("input file not found")
 }
 
