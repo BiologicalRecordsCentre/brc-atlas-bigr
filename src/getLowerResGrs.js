@@ -10,7 +10,7 @@ import { getGrFromCoords } from './getGrFromCoords.js'
  * returned Quadrant (5 km) grid references are in an array to allow for the case where
  * the input grid reference is a tetrad and overlaps more than one quadrant.
  * @param {string} gr - Grid reference.
- * @returns {object} - of the form {p100000: 'gr-100km', hectad: 'gr-hectad', quadrant: ['gr_quad1', ...], tetrad: 'gr-tetrad', ...}, with a property for each precisions.
+ * @returns {object} - of the form {p100000: 'gr-100km', p10000: 'gr-hectad', p5000: ['gr_quad1', ...], p2000: 'gr-tetrad', ...}, with a property for each precisions.
  */
 export function getLowerResGrs (gr) {
 
