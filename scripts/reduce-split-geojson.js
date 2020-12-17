@@ -14,7 +14,7 @@
 // string if you don't want to add a prefix
 //
 //Use like this:
-// node reduce-geojson.js <input-file.geojson> <output-folder> <decimal places> <attribute> <prefix>
+// node reduce-split-geojson.js <input-file.geojson> <output-folder> <decimal places> <attribute> <prefix>
 
 //const fs = require('fs')
 import fs from 'fs'
