@@ -7472,19 +7472,21 @@
    * @param {string} gr - the grid reference.
    * @param {string} toProjection - two letter code specifying the required output CRS.
    * @param {string} shape - string specifying the requested output shape type.
+   * @param {number} scale - number between 0 and 1 to scale the output object.
    * @returns {object} - a GeoJson path geometry object.
    * @todo Extend to return all symbol types
    */
 
 
-  function getGjson(gr, toProjection, shape) {
+  function getGjson(gr, toProjection, shape, scale) {
+    var size = scale ? scale : 1;
     var grType = checkGr(gr);
     var km100 = km100s[grType.prefix];
     var centroid = getCentroid(gr, km100.proj).centroid;
-    var xmin = centroid[0] - grType.precision / 2;
-    var xmax = centroid[0] + grType.precision / 2;
-    var ymin = centroid[1] - grType.precision / 2;
-    var ymax = centroid[1] + grType.precision / 2;
+    var xmin = centroid[0] - grType.precision / 2 * size;
+    var xmax = centroid[0] + grType.precision / 2 * size;
+    var ymin = centroid[1] - grType.precision / 2 * size;
+    var ymax = centroid[1] + grType.precision / 2 * size;
     var xmid = xmin + (xmax - xmin) / 2;
     var ymid = ymin + (ymax - ymin) / 2;
     var coords;
@@ -7499,7 +7501,7 @@
     } else if (shape === "diamond") {
       coords = [[convertCoords(km100.proj, toProjection, xmid, ymin), convertCoords(km100.proj, toProjection, xmax, ymid), convertCoords(km100.proj, toProjection, xmid, ymax), convertCoords(km100.proj, toProjection, xmin, ymid), convertCoords(km100.proj, toProjection, xmid, ymin)]];
     } else if (shape === "circle") {
-      var rad = grType.precision / 2;
+      var rad = grType.precision / 2 * size;
       coords = [[]];
 
       for (var deg = 0; deg <= 360; deg += 15) {
@@ -7691,7 +7693,7 @@
    * returned Quadrant (5 km) grid references are in an array to allow for the case where
    * the input grid reference is a tetrad and overlaps more than one quadrant.
    * @param {string} gr - Grid reference.
-   * @returns {object} - of the form {p100000: 'gr-100km', hectad: 'gr-hectad', quadrant: ['gr_quad1', ...], tetrad: 'gr-tetrad', ...}, with a property for each precisions.
+   * @returns {object} - of the form {p100000: 'gr-100km', p10000: 'gr-hectad', p5000: ['gr_quad1', ...], p2000: 'gr-tetrad', ...}, with a property for each precisions.
    */
 
   function getLowerResGrs(gr) {
