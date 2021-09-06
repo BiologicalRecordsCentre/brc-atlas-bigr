@@ -956,12 +956,15 @@ function getGjson (gr, toProjection, shape, scale) {
       [convertCoords(km100.proj, toProjection, xmin, ymax),
       convertCoords(km100.proj, toProjection, xmax, ymin)]
     ];
+  } else if (shape === "point") {
+    type = "Point";
+    coords = [convertCoords(km100.proj, toProjection, centroid[0], centroid[1])];
   }
 
   return {
-      "type": type,
-      "coordinates": coords
-    }
+    "type": type,
+    "coordinates": coords
+  }
 }
 
 /** @module src/pntToArea */

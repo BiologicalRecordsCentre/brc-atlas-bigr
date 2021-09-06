@@ -1,6 +1,6 @@
 {
   "name": "brc-atlas-bigr",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Utility functions for dealing with grid reference systems used in the British Isles.",
   "keywords": [
     "bng",

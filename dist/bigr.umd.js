@@ -7513,6 +7513,9 @@
     } else if (shape === "cross") {
       type = "MultiLineString";
       coords = [[convertCoords(km100.proj, toProjection, xmin, ymin), convertCoords(km100.proj, toProjection, xmax, ymin), convertCoords(km100.proj, toProjection, xmax, ymax), convertCoords(km100.proj, toProjection, xmin, ymax), convertCoords(km100.proj, toProjection, xmin, ymin)], [convertCoords(km100.proj, toProjection, xmin, ymin), convertCoords(km100.proj, toProjection, xmax, ymax)], [convertCoords(km100.proj, toProjection, xmin, ymax), convertCoords(km100.proj, toProjection, xmax, ymin)]];
+    } else if (shape === "point") {
+      type = "Point";
+      coords = [convertCoords(km100.proj, toProjection, centroid[0], centroid[1])];
     }
 
     return {
