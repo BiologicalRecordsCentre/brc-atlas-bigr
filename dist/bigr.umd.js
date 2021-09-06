@@ -7510,6 +7510,8 @@
         var y = rad * Math.sin(angle) + centroid[1];
         coords[0].push(convertCoords(km100.proj, toProjection, x, y));
       }
+    } else if (shape === "circlerad") {
+      coords = [[convertCoords(km100.proj, toProjection, centroid[0], centroid[1]), convertCoords(km100.proj, toProjection, xmax, centroid[1])]];
     } else if (shape === "cross") {
       type = "MultiLineString";
       coords = [[convertCoords(km100.proj, toProjection, xmin, ymin), convertCoords(km100.proj, toProjection, xmax, ymin), convertCoords(km100.proj, toProjection, xmax, ymax), convertCoords(km100.proj, toProjection, xmin, ymax), convertCoords(km100.proj, toProjection, xmin, ymin)], [convertCoords(km100.proj, toProjection, xmin, ymin), convertCoords(km100.proj, toProjection, xmax, ymax)], [convertCoords(km100.proj, toProjection, xmin, ymax), convertCoords(km100.proj, toProjection, xmax, ymin)]];
