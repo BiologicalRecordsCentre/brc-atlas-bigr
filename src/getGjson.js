@@ -98,7 +98,7 @@ export function getGjson (gr, toProjection, shape, scale) {
     ]
   } else if (shape === "point") {
     type = "Point"
-    coords = [convertCoords(km100.proj, toProjection, centroid[0], centroid[1])]
+    coords = convertCoords(km100.proj, toProjection, centroid[0], centroid[1])
   }
 
   return {
