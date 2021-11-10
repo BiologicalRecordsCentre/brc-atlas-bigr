@@ -7,7 +7,8 @@
 // node reduce-geojson.js <input-file.geojson> <output-file.geojson> <decimal places>
 
 //const fs = require('fs')
-import fs from 'fs'
+//import fse from 'fs-extra'
+const fse = require('fs-extra')
 
 if (process.argv.length !== 5) {
     console.error("You must specify three arguments - and input file and an outputfile and number of decimal places.")
@@ -23,8 +24,8 @@ function roundCoords(arr) {
   })
 }
 
-if (fs.existsSync(process.argv[2])) {
-  let input = fs.readFileSync(process.argv[2])
+if (fse.existsSync(process.argv[2])) {
+  let input = fse.readFileSync(process.argv[2])
   let json = JSON.parse(input)
   let newFeatures = json.features.map(function(f){
     // Does not output any feature properties
@@ -38,7 +39,7 @@ if (fs.existsSync(process.argv[2])) {
     return fNew
   })
   json.features = newFeatures
-  fs.writeFileSync(process.argv[3], JSON.stringify(json))
+  fse.writeFileSync(process.argv[3], JSON.stringify(json))
 } else {
   console.log("input file not found")
 }

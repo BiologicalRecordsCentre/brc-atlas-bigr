@@ -17,7 +17,8 @@
 // node reduce-split-geojson.js <input-file.geojson> <output-folder> <decimal places> <attribute> <prefix>
 
 //const fs = require('fs')
-import fs from 'fs'
+//import fs from 'fs'
+const fse = require('fs-extra')
 
 if (process.argv.length !== 7) {
     console.error("You must specify five arguments - and input file and an output folder, a number of decimal places, an attribute and a prefix.")
@@ -33,9 +34,9 @@ function roundCoords(arr) {
   })
 }
 
-if (fs.existsSync(process.argv[2])) {
-  if (fs.existsSync(process.argv[3])) {
-    let input = fs.readFileSync(process.argv[2])
+if (fse.existsSync(process.argv[2])) {
+  if (fse.existsSync(process.argv[3])) {
+    let input = fse.readFileSync(process.argv[2])
     let json = JSON.parse(input)
     const newFeatures = json.features.map(function(f){
       // Does not output any feature properties
@@ -53,7 +54,7 @@ if (fs.existsSync(process.argv[2])) {
       const filename = f.filename
       delete f.filename
       json.features = [f]
-      fs.writeFileSync(process.argv[3] + '/' + filename, JSON.stringify(json))
+      fse.writeFileSync(process.argv[3] + '/' + filename, JSON.stringify(json))
     })
   } else {
     console.log("output folder not found")
