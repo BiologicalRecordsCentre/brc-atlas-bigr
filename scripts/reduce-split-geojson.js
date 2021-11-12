@@ -63,7 +63,7 @@ if (fse.existsSync(process.argv[2])) {
   if (fse.existsSync(process.argv[3])) {
 
     // Write header for MBR file
-    fse.writeFileSync(process.argv[3] + '/mbrs.csv', 'vc, lllat, lllon, urlat, urlon\n')
+    fse.writeFileSync(process.argv[3] + '/mbrs.csv', 'attr, lllat, lllon, urlat, urlon\n')
 
     // Process the features
     let input = fse.readFileSync(process.argv[2])
