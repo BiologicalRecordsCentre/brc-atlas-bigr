@@ -7,8 +7,8 @@
 // node reduce-geojson.js <input-file.geojson> <output-file.geojson> <decimal places>
 
 //const fs = require('fs')
-//import fse from 'fs-extra'
-const fse = require('fs-extra')
+import fse from 'fs-extra'
+//const fse = require('fs-extra')
 
 if (process.argv.length !== 5) {
     console.error("You must specify three arguments - and input file and an outputfile and number of decimal places.")
