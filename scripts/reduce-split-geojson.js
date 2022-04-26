@@ -21,7 +21,8 @@
 
 //const fs = require('fs')
 //import fs from 'fs'
-const fse = require('fs-extra')
+//const fse = require('fs-extra')
+import fse from 'fs-extra'
 
 if (process.argv.length !== 7) {
     console.error("You must specify five arguments - and input file and an output folder, a number of decimal places, an attribute and a prefix.")
