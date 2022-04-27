@@ -86,14 +86,15 @@ if (fse.existsSync(process.argv[2])) {
       // Write mbr into file`
       fse.appendFileSync(process.argv[3] + '/mbrs.csv', `${process.argv[6] + f.properties[process.argv[5]]},${round(mbr.ll.lat)},${round(mbr.ll.lon)},${round(mbr.ur.lat)},${round(mbr.ur.lon)}\n`)
 
-      // Create output feature - does not output any feature properties
+      // Create output feature
       const fNew =  {
         type: f.type,
         filename: process.argv[6] + f.properties[process.argv[5]] + '.geojson',
         geometry: {
           type: f.geometry.type,
           coordinates: roundCoords(f.geometry.coordinates)
-        }
+        },
+        properties: f.properties
       }
       return fNew
     })
