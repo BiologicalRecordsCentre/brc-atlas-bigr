@@ -27,7 +27,6 @@
   "scripts": {
     "lint": "npx eslint src",
     "test": "jest",
-    "prepare": "node script-prepublish.js",
     "build": "rollup --config",
     "docs": "jsdoc ./src/ -R README.md -d ./docs/api"
   },
