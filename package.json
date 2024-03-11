@@ -24,6 +24,10 @@
   "module": "dist/bigr.esm.js",
   "browser": "dist/bigr.umd.js",
   "browsermin": "dist/bigr.min.umd.js",
+  "exports": {
+    "import": "./dist/bigr.esm.js",
+    "require": "./dist/bigr.cjs.js"
+  },
   "scripts": {
     "lint": "npx eslint src",
     "test": "jest",
