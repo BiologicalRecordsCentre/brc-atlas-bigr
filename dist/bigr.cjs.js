@@ -1,11 +1,7 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var proj4 = _interopDefault(require('proj4'));
-var pkg = _interopDefault(require('point-in-polygon'));
+var proj4 = require('proj4');
+var pkg = require('point-in-polygon');
 
 /** @module src/km100 */
 

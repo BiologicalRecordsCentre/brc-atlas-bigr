@@ -2,9 +2,9 @@
 import { eslint } from "rollup-plugin-eslint";
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import babel from '@rollup/plugin-babel'
+import { babel } from '@rollup/plugin-babel'
 import { terser } from 'rollup-plugin-terser'
-import pkg from './package.json'
+import pkg from './package.json' assert { type: "json" }
 
 export default [
 	// browser-friendly UMD builds
@@ -17,7 +17,7 @@ export default [
 		},
 		plugins: [
       eslint(),
-			resolve(), // so Rollup can find node libs
+	  resolve(), // so Rollup can find node libs
       commonjs(), // so Rollup can convert CommonJS modules to an ES modules
       babel({ babelHelpers: 'bundled', presets: ['@babel/preset-env'] })
 		]
