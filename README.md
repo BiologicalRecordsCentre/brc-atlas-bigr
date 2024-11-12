@@ -26,3 +26,18 @@ or include them in code directly from a CDN, e.g:
 For details of the API, view the [JSDoc API documentation](https://biologicalrecordscentre.github.io/brc-atlas-bigr/api/).
 
 There are also a number of [working examples](https://biologicalrecordscentre.github.io/brc-atlas-bigr/).
+
+## Notes for developers
+### Typical update workflow
+- npm run prepare
+- npm run lint
+- npm test
+- npm run build
+- npm run docs
+- npm login (if publishing to Node)
+- npm publish (if publishing to Node)
+- git commit
+- git push
+
+Because this is a published Node package the CDN https://unpkg.com/brc-atlas-bigr@version/dist/bigr.min.umd.js is automatically maintained with 'version' being replaced by the npm package version number when published.
+
