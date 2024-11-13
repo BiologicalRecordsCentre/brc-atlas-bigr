@@ -1,6 +1,6 @@
 // Utility script to take a geojson file and reduce it's size by rounding decimal
 // portion of all coordinates to a given number of decimal places. To remove the
-// decimal portion, then specify the number of decimal places as zero. 
+// decimal portion, specify the number of decimal places as zero. 
 // This is useful for CRS where the map units are metres.
 // It can considerably reduce the size of a geojson file. It also removes any
 // attribute properties. Use like this:

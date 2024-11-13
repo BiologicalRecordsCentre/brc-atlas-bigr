@@ -28,8 +28,14 @@ For details of the API, view the [JSDoc API documentation](https://biologicalrec
 There are also a number of [working examples](https://biologicalrecordscentre.github.io/brc-atlas-bigr/).
 
 ## Notes for developers
-### Typical update workflow
-- npm run prepare
+### Assets
+There are a number of geojson files in the `dist/assets` folder. These are used, for example, by the `pntToArea` function.
+### Documentation
+The package uses JSDoc to produce the API documentation. JSDoc is not included in the package dependendies since developers normally install it globally in their development environment.
+### Utility scripts
+There are a couple of utility scripts in the `scripts` folder for manipulating geojson files. I developed these when I was developing the geojson assets. They are commented inline.
+### Typical build & publish workflow
+- Upate version in package.json
 - npm run lint
 - npm test
 - npm run build
@@ -40,4 +46,27 @@ There are also a number of [working examples](https://biologicalrecordscentre.gi
 - git push
 
 Because this is a published Node package the CDN https://unpkg.com/brc-atlas-bigr@version/dist/bigr.min.umd.js is automatically maintained with 'version' being replaced by the npm package version number when published.
+### Rollup
+Rollup is used to build the transpiled library javascript assets for this package. Rollup is often preferred over webpack or other bundling tools for packaging libraries. The following javascript assets are produced by this rollup configuration:
+
+- **bigr.cjs.js**: CommonJS format package that Node projects can use. 
+- **bigr.esm.js**: an ES module formatted output JS file. Can be used in recent versions of node or in modern browsers. 
+- **bigr.umd.js**: this is the browser-friendly package which can be used from browsers (supports a couple of different export formats). 
+- **bigr.umd.min.js**: same as previous but minified.
+
+The following rollup plugins are used in the build:
+
+- **@rollup/plugin-node-resolve**: this allows rollup to resolve references to node libraries (in node_modules).
+- **@rollup/plugin-commonjs**: this allows rollup to convert CommonJS modules to ES6.
+- **@rollup/plugin-babel**: this is what allows rollup to transpile ES6/7 code to ES5 (for the browser packaging). This plugin has dependencies on '@babel/core' and '@babel/preset-env' which are included in the project's node package.
+- **rollup-plugin-terser**: this is used to produce the minified file.
+- **rollup-plugin-eslint**: this enables linting to be carried out as part of the packaging (not absolutely necessary since linting an be done on an ongoing basis and also added as an npm script).
+
+### Other files in project
+The following files are in the root folder: 
+
+- **_config.yml**: used by GitHub pages to configure github pages 
+- **.eslintrc.json**: configures ESLint. These some stuff in here that's necessary to get jest and eslint to play nicely together. 
+- **babel.config.js**: the configuration in here seems to necessary to get Jest to work properly with ES2015 modules. 
+- **rollup.config.js** - rollup configuration. 
 
