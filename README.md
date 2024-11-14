@@ -1,4 +1,4 @@
-### British Isles Grid Reference library
+# British Isles Grid Reference library
 The British Isles Grid Reference (bigr) library is a Javascript library for
 working with British, Irish or Channel Island grid references. 
 
