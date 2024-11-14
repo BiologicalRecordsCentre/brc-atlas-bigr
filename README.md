@@ -40,10 +40,11 @@ There are a couple of utility scripts in the `scripts` folder for manipulating g
 - `npm test`
 - `npm run build`
 - `npm run docs`
+- Git add any new files, e.g. `git add *`
+- Git commit all changes, e.g. `git commit -a`
+- `git push`
 - `npm login` (if publishing to Node)
 - `npm publish` (if publishing to Node)
-- Git commit all changes
-- `git push`
 
 Because this is a published Node package the CDN https://unpkg.com/brc-atlas-bigr@version/dist/bigr.min.umd.js is automatically maintained with 'version' being replaced by the npm package version number when published.
 ### Rollup
