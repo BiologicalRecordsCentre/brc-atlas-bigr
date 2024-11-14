@@ -35,15 +35,15 @@ The package uses JSDoc to produce the API documentation. JSDoc is not included i
 ### Utility scripts
 There are a couple of utility scripts in the `scripts` folder for manipulating geojson files. I developed these when I was developing the geojson assets. They are commented inline.
 ### Typical build & publish workflow
-- Upate version in package.json
-- npm run lint
-- npm test
-- npm run build
-- npm run docs
-- npm login (if publishing to Node)
-- npm publish (if publishing to Node)
-- git commit
-- git push
+- Upate version in `package.json`
+- `npm run lint`
+- `npm test`
+- `npm run build`
+- `npm run docs`
+- `npm login` (if publishing to Node)
+- `npm publish` (if publishing to Node)
+- Git commit all changes
+- `git push`
 
 Because this is a published Node package the CDN https://unpkg.com/brc-atlas-bigr@version/dist/bigr.min.umd.js is automatically maintained with 'version' being replaced by the npm package version number when published.
 ### Rollup
