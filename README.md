@@ -69,5 +69,5 @@ The following files are in the root folder:
 - **_config.yml**: used by GitHub pages to configure github pages 
 - **.eslintrc.json**: configures ESLint. These some stuff in here that's necessary to get jest and eslint to play nicely together. 
 - **babel.config.js**: the configuration in here seems to necessary to get Jest to work properly with ES2015 modules. 
-- **rollup.config.js** - rollup configuration. 
+- **rollup.config.js**: rollup configuration. 
 
