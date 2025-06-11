@@ -21,7 +21,10 @@
   ],
   "type": "module",
   "main": "dist/bigr.cjs.js",
-  "module": "dist/bigr.esm.js",
+  "exports": {
+    "import": "./dist/bigr.esm.js",
+    "require": "./dist/bigr.cjs.js"
+  },
   "browser": "dist/bigr.umd.js",
   "browsermin": "dist/bigr.min.umd.js",
   "scripts": {
