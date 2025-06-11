@@ -48,7 +48,7 @@ export default [
     external: ['proj4', 'point-in-polygon'],
 		output: [
 			{ file: pkg.main, format: 'cjs' },
-			{ file: pkg.module, format: 'es' }
+			{ file: pkg.exports.import, format: 'es' }
 		]
 	}
 ]
